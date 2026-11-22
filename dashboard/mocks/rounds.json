@@ -1,0 +1,3259 @@
+[
+  {
+    "round_id": 1,
+    "final_value": 111,
+    "confidence": 0.9904,
+    "proof_hash": "0xe924dad179c32355e034c9e13cb7e4ab9642790b4fdb36dc8402e932345538c5",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 110.97,
+        "anomaly_score": 0.179,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 110.73,
+        "anomaly_score": 0.076,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 111.33,
+        "anomaly_score": 0.061,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 110.9,
+        "anomaly_score": 0.074,
+        "reputation": 0.89,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 110.88,
+        "anomaly_score": 0.151,
+        "reputation": 0.76,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 111.21,
+        "anomaly_score": 0.129,
+        "reputation": 0.61,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 111.07,
+        "anomaly_score": 0.133,
+        "reputation": 0.46,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 111.01,
+      "median": 110.97,
+      "trimmed": 111.01,
+      "weighted": 111,
+      "ai": 111
+    },
+    "ground_truth": 110.94
+  },
+  {
+    "round_id": 2,
+    "final_value": 113.54,
+    "confidence": 0.9899,
+    "proof_hash": "0x3e42fa6976a45a1cb21d2b9cfe77255c983cb091087989d92ee7a876870b1adf",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 113.51,
+        "anomaly_score": 0.172,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 113.7,
+        "anomaly_score": 0.104,
+        "reputation": 0.97,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 113.59,
+        "anomaly_score": 0.163,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 113.28,
+        "anomaly_score": 0.166,
+        "reputation": 0.9,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 113.95,
+        "anomaly_score": 0.105,
+        "reputation": 0.77,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 113.46,
+        "anomaly_score": 0.194,
+        "reputation": 0.62,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 113.38,
+        "anomaly_score": 0.055,
+        "reputation": 0.47,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 113.36,
+        "anomaly_score": 0.179,
+        "reputation": 0.83,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 113.53,
+      "median": 113.48,
+      "trimmed": 113.5,
+      "weighted": 113.54,
+      "ai": 113.54
+    },
+    "ground_truth": 113.68
+  },
+  {
+    "round_id": 3,
+    "final_value": 115.98,
+    "confidence": 0.9898,
+    "proof_hash": "0xc20dc560c20b92107650fc73ffa739902a6fc0217315623ce98bbb830f87ee1b",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 115.9,
+        "anomaly_score": 0.087,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 115.8,
+        "anomaly_score": 0.13,
+        "reputation": 0.98,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 115.91,
+        "anomaly_score": 0.085,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 116.26,
+        "anomaly_score": 0.082,
+        "reputation": 0.91,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 116.26,
+        "anomaly_score": 0.07,
+        "reputation": 0.78,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 115.76,
+        "anomaly_score": 0.152,
+        "reputation": 0.63,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 115.98,
+      "median": 115.91,
+      "trimmed": 115.97,
+      "weighted": 115.98,
+      "ai": 115.98
+    },
+    "ground_truth": 116.11
+  },
+  {
+    "round_id": 4,
+    "final_value": 118.07,
+    "confidence": 0.6786,
+    "proof_hash": "0x6b11275b8ab593ce7399d2959c9690fac9928ed226c0baf132b203a01c18105c",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 117.98,
+        "anomaly_score": 0.121,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 117.75,
+        "anomaly_score": 0.105,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 118.24,
+        "anomaly_score": 0.102,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 118.22,
+        "anomaly_score": 0.115,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 117.9,
+        "anomaly_score": 0.092,
+        "reputation": 0.79,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 118.44,
+        "anomaly_score": 0.082,
+        "reputation": 0.64,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 143.13,
+        "anomaly_score": 0.931,
+        "reputation": 0.42,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 121.67,
+      "median": 118.22,
+      "trimmed": 118.16,
+      "weighted": 119.92,
+      "ai": 118.07
+    },
+    "ground_truth": 118.13
+  },
+  {
+    "round_id": 5,
+    "final_value": 119.55,
+    "confidence": 0.8205,
+    "proof_hash": "0x253a5a541e2e9d861cbb91ddf63a036865163f3a7cbb602660b28a67ca0528ec",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 119.98,
+        "anomaly_score": 0.092,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 119.46,
+        "anomaly_score": 0.157,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 119.42,
+        "anomaly_score": 0.185,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 119.36,
+        "anomaly_score": 0.116,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 119.67,
+        "anomaly_score": 0.089,
+        "reputation": 0.8,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 119.25,
+        "anomaly_score": 0.077,
+        "reputation": 0.65,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 126.14,
+        "anomaly_score": 0.713,
+        "reputation": 0.37,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 119.63,
+        "anomaly_score": 0.127,
+        "reputation": 0.84,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 120.36,
+      "median": 119.54,
+      "trimmed": 119.59,
+      "weighted": 119.92,
+      "ai": 119.55
+    },
+    "ground_truth": 119.64
+  },
+  {
+    "round_id": 6,
+    "final_value": 120.6,
+    "confidence": 0.9912,
+    "proof_hash": "0x1b05b2f1c36b6395a5dd477bcde84332809bf40cb187c0e99e293c93772a3a99",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 120.59,
+        "anomaly_score": 0.176,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 120.74,
+        "anomaly_score": 0.141,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 120.78,
+        "anomaly_score": 0.19,
+        "reputation": 0.97,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 120.65,
+        "anomaly_score": 0.168,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 120.29,
+        "anomaly_score": 0.133,
+        "reputation": 0.81,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 120.41,
+        "anomaly_score": 0.104,
+        "reputation": 0.66,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 120.58,
+      "median": 120.62,
+      "trimmed": 120.6,
+      "weighted": 120.6,
+      "ai": 120.6
+    },
+    "ground_truth": 120.58
+  },
+  {
+    "round_id": 7,
+    "final_value": 120.9,
+    "confidence": 0.9041,
+    "proof_hash": "0xc94c6f60b8908ebdfc052b510ef62f0dd23b1d44a7aac7e19e8a189edf0914ab",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 121.07,
+        "anomaly_score": 0.11,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 120.75,
+        "anomaly_score": 0.074,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 120.5,
+        "anomaly_score": 0.127,
+        "reputation": 0.98,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 121.07,
+        "anomaly_score": 0.189,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 119.74,
+        "anomaly_score": 0.601,
+        "reputation": 0.76,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 121.02,
+        "anomaly_score": 0.095,
+        "reputation": 0.67,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 121.18,
+        "anomaly_score": 0.118,
+        "reputation": 0.38,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 120.76,
+      "median": 121.02,
+      "trimmed": 120.88,
+      "weighted": 120.74,
+      "ai": 120.9
+    },
+    "ground_truth": 120.9
+  },
+  {
+    "round_id": 8,
+    "final_value": 120.56,
+    "confidence": 0.6875,
+    "proof_hash": "0xef21f5559381612895c1dd30f33a520f35e3e37f530970df750b7b67a9ee645f",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 120.83,
+        "anomaly_score": 0.116,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 120.29,
+        "anomaly_score": 0.091,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 120.7,
+        "anomaly_score": 0.161,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 120.6,
+        "anomaly_score": 0.17,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 120.29,
+        "anomaly_score": 0.128,
+        "reputation": 0.77,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 120.69,
+        "anomaly_score": 0.153,
+        "reputation": 0.68,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 120.43,
+        "anomaly_score": 0.055,
+        "reputation": 0.39,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 145.57,
+        "anomaly_score": 0.909,
+        "reputation": 0.79,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 123.67,
+      "median": 120.64,
+      "trimmed": 120.59,
+      "weighted": 123.57,
+      "ai": 120.56
+    },
+    "ground_truth": 120.57
+  },
+  {
+    "round_id": 9,
+    "final_value": 119.36,
+    "confidence": 0.6667,
+    "proof_hash": "0x0b337098430016b1fd7fa11f5d566204a6d93aa148a20864fb8a9e47153d1112",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 119.38,
+        "anomaly_score": 0.117,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 119.24,
+        "anomaly_score": 0.055,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 119.39,
+        "anomaly_score": 0.091,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 100,
+        "anomaly_score": 0.751,
+        "reputation": 0.91,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 119.61,
+        "anomaly_score": 0.124,
+        "reputation": 0.78,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 119.2,
+        "anomaly_score": 0.095,
+        "reputation": 0.69,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 116.14,
+      "median": 119.31,
+      "trimmed": 119.3,
+      "weighted": 116.07,
+      "ai": 119.36
+    },
+    "ground_truth": 119.58
+  },
+  {
+    "round_id": 10,
+    "final_value": 118.02,
+    "confidence": 0.8063,
+    "proof_hash": "0x381d47022eb6a7750d69a6279b877a5f1ca25edc14c6ed508861230fcbb83bdd",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 117.83,
+        "anomaly_score": 0.186,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 118.35,
+        "anomaly_score": 0.136,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 117.91,
+        "anomaly_score": 0.187,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 118.14,
+        "anomaly_score": 0.057,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 117.69,
+        "anomaly_score": 0.181,
+        "reputation": 0.79,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 124.46,
+        "anomaly_score": 0.734,
+        "reputation": 0.64,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 118.33,
+        "anomaly_score": 0.199,
+        "reputation": 0.4,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 118.96,
+      "median": 118.14,
+      "trimmed": 118.11,
+      "weighted": 118.74,
+      "ai": 118.02
+    },
+    "ground_truth": 117.96
+  },
+  {
+    "round_id": 11,
+    "final_value": 115.7,
+    "confidence": 0.625,
+    "proof_hash": "0x2a34f53b800f81d44a21e1acb46e336fc7141060f2f4e8fa4ce236bd8dbe272b",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 115.78,
+        "anomaly_score": 0.141,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 115.42,
+        "anomaly_score": 0.186,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 116.15,
+        "anomaly_score": 0.189,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 115.4,
+        "anomaly_score": 0.119,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 115.74,
+        "anomaly_score": 0.152,
+        "reputation": 0.8,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 115.67,
+        "anomaly_score": 0.124,
+        "reputation": 0.65,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 127.76,
+        "anomaly_score": 0.87,
+        "reputation": 0.35,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 127.76,
+        "anomaly_score": 0.855,
+        "reputation": 0.74,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 118.71,
+      "median": 115.76,
+      "trimmed": 117.75,
+      "weighted": 117.74,
+      "ai": 115.7
+    },
+    "ground_truth": 115.76
+  },
+  {
+    "round_id": 12,
+    "final_value": 112.93,
+    "confidence": 0.6667,
+    "proof_hash": "0xa601c109606210c107a5b7cf99b30097e4bb2f739679bef8435f550835097c7c",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 113,
+        "anomaly_score": 0.089,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 112.96,
+        "anomaly_score": 0.111,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 112.93,
+        "anomaly_score": 0.094,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 113.05,
+        "anomaly_score": 0.062,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 112.67,
+        "anomaly_score": 0.119,
+        "reputation": 0.81,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 88.03,
+        "anomaly_score": 0.96,
+        "reputation": 0.6,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 108.77,
+      "median": 112.94,
+      "trimmed": 112.89,
+      "weighted": 110.12,
+      "ai": 112.93
+    },
+    "ground_truth": 113.03
+  },
+  {
+    "round_id": 13,
+    "final_value": 109.87,
+    "confidence": 0.58,
+    "proof_hash": "0xd7befd9a48d6b183f36dfcd12ae6330d73cb41c8045ed605cde1587cd28af5b7",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 109.77,
+        "anomaly_score": 0.101,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 110.21,
+        "anomaly_score": 0.171,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 109.83,
+        "anomaly_score": 0.107,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 109.93,
+        "anomaly_score": 0.178,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 109.75,
+        "anomaly_score": 0.084,
+        "reputation": 0.82,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 109.58,
+        "anomaly_score": 0.146,
+        "reputation": 0.61,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 109.97,
+        "anomaly_score": 0.17,
+        "reputation": 0.36,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 109.86,
+      "median": 109.83,
+      "trimmed": 109.85,
+      "weighted": 109.87,
+      "ai": 109.87
+    },
+    "ground_truth": 109.87
+  },
+  {
+    "round_id": 14,
+    "final_value": 106.43,
+    "confidence": 0.8841,
+    "proof_hash": "0x0c19d2b3be36b0571971d8174e2603c06703f9b216376e4287c8cc638859dda5",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 106.39,
+        "anomaly_score": 0.175,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 106.55,
+        "anomaly_score": 0.154,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 106,
+        "anomaly_score": 0.112,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 106.49,
+        "anomaly_score": 0.071,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 106.66,
+        "anomaly_score": 0.184,
+        "reputation": 0.83,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 109.39,
+        "anomaly_score": 0.527,
+        "reputation": 0.56,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 106.73,
+        "anomaly_score": 0.152,
+        "reputation": 0.37,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 106.44,
+        "anomaly_score": 0.102,
+        "reputation": 0.75,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 106.83,
+      "median": 106.52,
+      "trimmed": 106.54,
+      "weighted": 106.69,
+      "ai": 106.43
+    },
+    "ground_truth": 106.38
+  },
+  {
+    "round_id": 15,
+    "final_value": 102.65,
+    "confidence": 0.7833,
+    "proof_hash": "0x1fbdc449e18bc148685167d36c7f21ee09422fb56df3fef624af0804d9a6483d",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 102.56,
+        "anomaly_score": 0.132,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 102.53,
+        "anomaly_score": 0.086,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 102.83,
+        "anomaly_score": 0.074,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 102.63,
+        "anomaly_score": 0.169,
+        "reputation": 0.97,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 109.18,
+        "anomaly_score": 0.741,
+        "reputation": 0.78,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 102.75,
+        "anomaly_score": 0.107,
+        "reputation": 0.57,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 103.75,
+      "median": 102.69,
+      "trimmed": 102.69,
+      "weighted": 103.61,
+      "ai": 102.65
+    },
+    "ground_truth": 102.68
+  },
+  {
+    "round_id": 16,
+    "final_value": 98.65,
+    "confidence": 0.6786,
+    "proof_hash": "0x4a23a0c925f27493e5c1509b691dad30d01c726276efc60090ebb842eaa7a787",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 98.61,
+        "anomaly_score": 0.069,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 98.51,
+        "anomaly_score": 0.164,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 98.56,
+        "anomaly_score": 0.144,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 98.57,
+        "anomaly_score": 0.076,
+        "reputation": 0.98,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 98.94,
+        "anomaly_score": 0.117,
+        "reputation": 0.79,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 98.88,
+        "anomaly_score": 0.077,
+        "reputation": 0.58,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 73.89,
+        "anomaly_score": 0.9,
+        "reputation": 0.32,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 95.14,
+      "median": 98.57,
+      "trimmed": 98.63,
+      "weighted": 97.25,
+      "ai": 98.65
+    },
+    "ground_truth": 98.89
+  },
+  {
+    "round_id": 17,
+    "final_value": 95.13,
+    "confidence": 0.9881,
+    "proof_hash": "0xc65e186a25952fc4944d545d54983812f4be531739af33fea0c4dd6b7460970f",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 95.22,
+        "anomaly_score": 0.067,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 95.1,
+        "anomaly_score": 0.115,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 95.02,
+        "anomaly_score": 0.187,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 95.47,
+        "anomaly_score": 0.119,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 94.83,
+        "anomaly_score": 0.148,
+        "reputation": 0.8,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 95.46,
+        "anomaly_score": 0.146,
+        "reputation": 0.59,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 95.14,
+        "anomaly_score": 0.076,
+        "reputation": 0.33,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 94.79,
+        "anomaly_score": 0.159,
+        "reputation": 0.76,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 95.13,
+      "median": 95.12,
+      "trimmed": 95.13,
+      "weighted": 95.13,
+      "ai": 95.13
+    },
+    "ground_truth": 95.14
+  },
+  {
+    "round_id": 18,
+    "final_value": 91.57,
+    "confidence": 0.7443,
+    "proof_hash": "0x895c2d9be57e28566d4ace738b09f7e3a0b9a897e079971d2b1ccb20a1b189f3",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 91.9,
+        "anomaly_score": 0.125,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 91.34,
+        "anomaly_score": 0.152,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 91.42,
+        "anomaly_score": 0.152,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 100,
+        "anomaly_score": 0.798,
+        "reputation": 0.94,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 91.55,
+        "anomaly_score": 0.124,
+        "reputation": 0.81,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 91.71,
+        "anomaly_score": 0.113,
+        "reputation": 0.6,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 92.99,
+      "median": 91.63,
+      "trimmed": 91.65,
+      "weighted": 93.06,
+      "ai": 91.57
+    },
+    "ground_truth": 91.54
+  },
+  {
+    "round_id": 19,
+    "final_value": 88.19,
+    "confidence": 0.9903,
+    "proof_hash": "0xc127dd850741b4daf04e6b7226c851d4242728b738f3bcbe6eda88d9ce83c37f",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 88.37,
+        "anomaly_score": 0.113,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 88.02,
+        "anomaly_score": 0.098,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 88.01,
+        "anomaly_score": 0.159,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 88.07,
+        "anomaly_score": 0.149,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 88.47,
+        "anomaly_score": 0.101,
+        "reputation": 0.82,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 88.4,
+        "anomaly_score": 0.122,
+        "reputation": 0.61,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 88.01,
+        "anomaly_score": 0.116,
+        "reputation": 0.34,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 88.19,
+      "median": 88.07,
+      "trimmed": 88.17,
+      "weighted": 88.19,
+      "ai": 88.19
+    },
+    "ground_truth": 88.24
+  },
+  {
+    "round_id": 20,
+    "final_value": 85.3,
+    "confidence": 0.625,
+    "proof_hash": "0xeaf52e4a9b3dfde52a8aa4672b1f4c9aaec061de8a9ad2e254107305428f8c27",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 85.34,
+        "anomaly_score": 0.189,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 84.98,
+        "anomaly_score": 0.137,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 85.54,
+        "anomaly_score": 0.115,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 85.35,
+        "anomaly_score": 0.079,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 85.05,
+        "anomaly_score": 0.08,
+        "reputation": 0.83,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 85.59,
+        "anomaly_score": 0.169,
+        "reputation": 0.62,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 91.82,
+        "anomaly_score": 0.676,
+        "reputation": 0.29,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 110.32,
+        "anomaly_score": 0.854,
+        "reputation": 0.71,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 89.25,
+      "median": 85.44,
+      "trimmed": 86.45,
+      "weighted": 88.38,
+      "ai": 85.3
+    },
+    "ground_truth": 85.32
+  },
+  {
+    "round_id": 21,
+    "final_value": 82.92,
+    "confidence": 0.8476,
+    "proof_hash": "0x26e315163bedf73864baf2cd11a8f4709046040af25b5a1b50199de884fd2e8a",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 82.89,
+        "anomaly_score": 0.061,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 82.89,
+        "anomaly_score": 0.059,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 82.78,
+        "anomaly_score": 0.094,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 86.29,
+        "anomaly_score": 0.59,
+        "reputation": 0.91,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 82.93,
+        "anomaly_score": 0.179,
+        "reputation": 0.84,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 83.2,
+        "anomaly_score": 0.154,
+        "reputation": 0.63,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 83.5,
+      "median": 82.91,
+      "trimmed": 82.98,
+      "weighted": 83.49,
+      "ai": 82.92
+    },
+    "ground_truth": 82.89
+  },
+  {
+    "round_id": 22,
+    "final_value": 81.17,
+    "confidence": 0.6071,
+    "proof_hash": "0xbdfb568a38393e524b3303d2a9194d0bfa77455d7b978376f70c0c90cfdc9ca1",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 81.28,
+        "anomaly_score": 0.132,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 81.1,
+        "anomaly_score": 0.061,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 81.04,
+        "anomaly_score": 0.072,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 81.35,
+        "anomaly_score": 0.184,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 81.07,
+        "anomaly_score": 0.072,
+        "reputation": 0.85,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 93.02,
+        "anomaly_score": 0.806,
+        "reputation": 0.58,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 93.02,
+        "anomaly_score": 0.862,
+        "reputation": 0.24,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 84.55,
+      "median": 81.28,
+      "trimmed": 83.56,
+      "weighted": 82.92,
+      "ai": 81.17
+    },
+    "ground_truth": 81.02
+  },
+  {
+    "round_id": 23,
+    "final_value": 79.66,
+    "confidence": 0.9941,
+    "proof_hash": "0xce6cae92250628b0e8465add8f6a5c799afde0e0d994231c2576a7f8bc89dc46",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 79.74,
+        "anomaly_score": 0.074,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 79.66,
+        "anomaly_score": 0.19,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 79.59,
+        "anomaly_score": 0.164,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 79.66,
+        "anomaly_score": 0.152,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 79.78,
+        "anomaly_score": 0.052,
+        "reputation": 0.86,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 79.66,
+        "anomaly_score": 0.162,
+        "reputation": 0.59,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 79.37,
+        "anomaly_score": 0.161,
+        "reputation": 0.25,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 79.62,
+        "anomaly_score": 0.131,
+        "reputation": 0.72,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 79.63,
+      "median": 79.66,
+      "trimmed": 79.65,
+      "weighted": 79.66,
+      "ai": 79.66
+    },
+    "ground_truth": 79.76
+  },
+  {
+    "round_id": 24,
+    "final_value": 79.15,
+    "confidence": 0.6667,
+    "proof_hash": "0x81d06eefd39a88be98afd3c1bb5721223abddf970fa490053eab633e93998da1",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 78.89,
+        "anomaly_score": 0.133,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 79.39,
+        "anomaly_score": 0.177,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 79.06,
+        "anomaly_score": 0.075,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 79.37,
+        "anomaly_score": 0.176,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 79.01,
+        "anomaly_score": 0.083,
+        "reputation": 0.87,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 104.16,
+        "anomaly_score": 0.912,
+        "reputation": 0.54,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 83.31,
+      "median": 79.22,
+      "trimmed": 79.21,
+      "weighted": 81.68,
+      "ai": 79.15
+    },
+    "ground_truth": 79.16
+  },
+  {
+    "round_id": 25,
+    "final_value": 79.29,
+    "confidence": 0.8069,
+    "proof_hash": "0xccddb435fbd6cd680d26c0cccf7fd9bfae58d46a4654b3d2c84b9e1ed768f4fb",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 79.04,
+        "anomaly_score": 0.181,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 79.2,
+        "anomaly_score": 0.062,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 79.48,
+        "anomaly_score": 0.145,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 79.48,
+        "anomaly_score": 0.178,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 79.2,
+        "anomaly_score": 0.163,
+        "reputation": 0.88,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 85.71,
+        "anomaly_score": 0.691,
+        "reputation": 0.49,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 79.55,
+        "anomaly_score": 0.069,
+        "reputation": 0.26,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 80.24,
+      "median": 79.48,
+      "trimmed": 79.38,
+      "weighted": 79.86,
+      "ai": 79.29
+    },
+    "ground_truth": 79.21
+  },
+  {
+    "round_id": 26,
+    "final_value": 79.91,
+    "confidence": 0.9882,
+    "proof_hash": "0x4d0c310cb10e6117710a58d2ad0f43648b5f3e3525a5fed572772269e0ff4943",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 79.84,
+        "anomaly_score": 0.114,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 80.17,
+        "anomaly_score": 0.063,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 80.18,
+        "anomaly_score": 0.155,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 79.51,
+        "anomaly_score": 0.069,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 80.14,
+        "anomaly_score": 0.157,
+        "reputation": 0.89,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 79.72,
+        "anomaly_score": 0.174,
+        "reputation": 0.5,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 79.76,
+        "anomaly_score": 0.142,
+        "reputation": 0.27,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 79.74,
+        "anomaly_score": 0.096,
+        "reputation": 0.73,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 79.88,
+      "median": 79.8,
+      "trimmed": 79.89,
+      "weighted": 79.91,
+      "ai": 79.91
+    },
+    "ground_truth": 79.89
+  },
+  {
+    "round_id": 27,
+    "final_value": 81.02,
+    "confidence": 0.64,
+    "proof_hash": "0x713334a369fa5881baa299800d0c4ef1c92b3bd0ff2bc167e76744eff45f37eb",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 80.82,
+        "anomaly_score": 0.121,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 80.95,
+        "anomaly_score": 0.11,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 81.11,
+        "anomaly_score": 0.172,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 100,
+        "anomaly_score": 0.766,
+        "reputation": 0.91,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 81.04,
+        "anomaly_score": 0.084,
+        "reputation": 0.9,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 81.34,
+        "anomaly_score": 0.066,
+        "reputation": 0.51,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 84.21,
+      "median": 81.08,
+      "trimmed": 81.11,
+      "weighted": 84.29,
+      "ai": 81.02
+    },
+    "ground_truth": 81.18
+  },
+  {
+    "round_id": 28,
+    "final_value": 82.68,
+    "confidence": 0.6786,
+    "proof_hash": "0x58959571fa137d9fc4dfbd6e1cb8318517cabdfe2714c102d8668dd3b6d684eb",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 83.1,
+        "anomaly_score": 0.18,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 82.7,
+        "anomaly_score": 0.137,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 82.89,
+        "anomaly_score": 0.128,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 82.89,
+        "anomaly_score": 0.134,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 81.76,
+        "anomaly_score": 0.493,
+        "reputation": 0.91,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 82.73,
+        "anomaly_score": 0.083,
+        "reputation": 0.52,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 57.99,
+        "anomaly_score": 0.941,
+        "reputation": 0.22,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 79.15,
+      "median": 82.73,
+      "trimmed": 82.59,
+      "weighted": 81.7,
+      "ai": 82.68
+    },
+    "ground_truth": 82.99
+  },
+  {
+    "round_id": 29,
+    "final_value": 85.21,
+    "confidence": 0.9894,
+    "proof_hash": "0xc97d5ae5bf0425b7e217efbfb2d237a3c157cfa05ac21955dad992fcee642de8",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 85.31,
+        "anomaly_score": 0.157,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 85.53,
+        "anomaly_score": 0.081,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 84.9,
+        "anomaly_score": 0.177,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 85.43,
+        "anomaly_score": 0.151,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 85,
+        "anomaly_score": 0.174,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 85.32,
+        "anomaly_score": 0.145,
+        "reputation": 0.53,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 85.09,
+        "anomaly_score": 0.19,
+        "reputation": 0.23,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 85.04,
+        "anomaly_score": 0.164,
+        "reputation": 0.74,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 85.2,
+      "median": 85.2,
+      "trimmed": 85.2,
+      "weighted": 85.21,
+      "ai": 85.21
+    },
+    "ground_truth": 85.26
+  },
+  {
+    "round_id": 30,
+    "final_value": 87.99,
+    "confidence": 0.7858,
+    "proof_hash": "0xbbf9e3d2fa06be91a0f54b9b64ef39e352765793d4373a2d6d6acb38bb2296d9",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 88.06,
+        "anomaly_score": 0.117,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 87.98,
+        "anomaly_score": 0.197,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 87.8,
+        "anomaly_score": 0.065,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 87.96,
+        "anomaly_score": 0.095,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 94.39,
+        "anomaly_score": 0.685,
+        "reputation": 0.87,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 88.26,
+        "anomaly_score": 0.145,
+        "reputation": 0.54,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 89.08,
+      "median": 88.02,
+      "trimmed": 88.06,
+      "weighted": 89.03,
+      "ai": 87.99
+    },
+    "ground_truth": 87.89
+  },
+  {
+    "round_id": 31,
+    "final_value": 90.85,
+    "confidence": 0.995,
+    "proof_hash": "0x93f806e47c0086bb1fd5f8db366a51d9625a47f96629706495f98b0d82233744",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 91,
+        "anomaly_score": 0.097,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 90.81,
+        "anomaly_score": 0.053,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 90.75,
+        "anomaly_score": 0.126,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 90.97,
+        "anomaly_score": 0.127,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 90.76,
+        "anomaly_score": 0.08,
+        "reputation": 0.88,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 90.76,
+        "anomaly_score": 0.069,
+        "reputation": 0.55,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 90.93,
+        "anomaly_score": 0.081,
+        "reputation": 0.24,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 90.85,
+      "median": 90.81,
+      "trimmed": 90.85,
+      "weighted": 90.85,
+      "ai": 90.85
+    },
+    "ground_truth": 90.76
+  },
+  {
+    "round_id": 32,
+    "final_value": 93.81,
+    "confidence": 0.6875,
+    "proof_hash": "0x8fc4e7c47d2f7f385dc90954f0137d08d46e06f6f2a0eabeaea8ad1686bccabb",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 93.58,
+        "anomaly_score": 0.192,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 94.04,
+        "anomaly_score": 0.154,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 94.12,
+        "anomaly_score": 0.169,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 93.84,
+        "anomaly_score": 0.068,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 93.44,
+        "anomaly_score": 0.059,
+        "reputation": 0.89,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 93.82,
+        "anomaly_score": 0.091,
+        "reputation": 0.56,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 93.81,
+        "anomaly_score": 0.148,
+        "reputation": 0.25,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 68.76,
+        "anomaly_score": 0.944,
+        "reputation": 0.69,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 90.68,
+      "median": 93.81,
+      "trimmed": 93.75,
+      "weighted": 91.08,
+      "ai": 93.81
+    },
+    "ground_truth": 93.76
+  },
+  {
+    "round_id": 33,
+    "final_value": 96.64,
+    "confidence": 0.5833,
+    "proof_hash": "0xa3945197de22f741468ec806768b0062004b3b6fc518105f4f2e20816f2329b7",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 96.69,
+        "anomaly_score": 0.163,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 96.53,
+        "anomaly_score": 0.069,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 96.46,
+        "anomaly_score": 0.091,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 96.88,
+        "anomaly_score": 0.143,
+        "reputation": 0.97,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 108.77,
+        "anomaly_score": 0.799,
+        "reputation": 0.84,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 108.77,
+        "anomaly_score": 0.791,
+        "reputation": 0.51,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 100.68,
+      "median": 96.78,
+      "trimmed": 99.72,
+      "weighted": 99.73,
+      "ai": 96.64
+    },
+    "ground_truth": 96.77
+  },
+  {
+    "round_id": 34,
+    "final_value": 99.64,
+    "confidence": 0.991,
+    "proof_hash": "0xbd2ee39429a58f9a14c67886140c24efe49d8fa13a510a190d84c17d85c08f96",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 99.66,
+        "anomaly_score": 0.1,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 99.3,
+        "anomaly_score": 0.142,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 99.77,
+        "anomaly_score": 0.179,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 99.68,
+        "anomaly_score": 0.065,
+        "reputation": 0.98,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 99.69,
+        "anomaly_score": 0.142,
+        "reputation": 0.85,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 99.74,
+        "anomaly_score": 0.188,
+        "reputation": 0.52,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 99.92,
+        "anomaly_score": 0.181,
+        "reputation": 0.26,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 99.68,
+      "median": 99.69,
+      "trimmed": 99.71,
+      "weighted": 99.64,
+      "ai": 99.64
+    },
+    "ground_truth": 99.68
+  },
+  {
+    "round_id": 35,
+    "final_value": 102.28,
+    "confidence": 0.7566,
+    "proof_hash": "0x97d04e22c338f5e05d9ed823a5f12ebe9e952477086e0cd466465273f556441d",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 102.25,
+        "anomaly_score": 0.165,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 102.31,
+        "anomaly_score": 0.076,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 102.59,
+        "anomaly_score": 0.119,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 102.12,
+        "anomaly_score": 0.198,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 102.34,
+        "anomaly_score": 0.11,
+        "reputation": 0.86,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 103.44,
+        "anomaly_score": 0.57,
+        "reputation": 0.47,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 108.86,
+        "anomaly_score": 0.763,
+        "reputation": 0.21,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 102,
+        "anomaly_score": 0.107,
+        "reputation": 0.7,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 103.24,
+      "median": 102.33,
+      "trimmed": 102.51,
+      "weighted": 102.59,
+      "ai": 102.28
+    },
+    "ground_truth": 102.36
+  },
+  {
+    "round_id": 36,
+    "final_value": 104.74,
+    "confidence": 0.5833,
+    "proof_hash": "0xbdf5b3d656620da4e5cbcc93ab1541fcd90d089ee02aadb6c5815ef255cd4738",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 104.87,
+        "anomaly_score": 0.164,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 104.99,
+        "anomaly_score": 0.082,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 104.35,
+        "anomaly_score": 0.121,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 100,
+        "anomaly_score": 0.789,
+        "reputation": 0.94,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 104.76,
+        "anomaly_score": 0.1,
+        "reputation": 0.87,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 79.73,
+        "anomaly_score": 0.897,
+        "reputation": 0.42,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 99.78,
+      "median": 104.56,
+      "trimmed": 103.5,
+      "weighted": 101.86,
+      "ai": 104.74
+    },
+    "ground_truth": 104.73
+  },
+  {
+    "round_id": 37,
+    "final_value": 106.7,
+    "confidence": 0.9862,
+    "proof_hash": "0xb4d12e4967fa5e6375efd0292ee07969b37e70ffbb04e0c9979ff691fcfca276",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 106.89,
+        "anomaly_score": 0.161,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 107.07,
+        "anomaly_score": 0.092,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 106.41,
+        "anomaly_score": 0.158,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 106.56,
+        "anomaly_score": 0.082,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 106.52,
+        "anomaly_score": 0.076,
+        "reputation": 0.88,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 107,
+        "anomaly_score": 0.096,
+        "reputation": 0.43,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 106.33,
+        "anomaly_score": 0.146,
+        "reputation": 0.22,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 106.68,
+      "median": 106.56,
+      "trimmed": 106.68,
+      "weighted": 106.7,
+      "ai": 106.7
+    },
+    "ground_truth": 106.7
+  },
+  {
+    "round_id": 38,
+    "final_value": 108.06,
+    "confidence": 0.9889,
+    "proof_hash": "0x7d786faeb14816c245f8af23eda2e30cc4b493bd89a09c8a8c1325d3df0f58bd",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 108.39,
+        "anomaly_score": 0.161,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 107.98,
+        "anomaly_score": 0.13,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 108.06,
+        "anomaly_score": 0.065,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 108.01,
+        "anomaly_score": 0.188,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 108.06,
+        "anomaly_score": 0.182,
+        "reputation": 0.89,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 107.8,
+        "anomaly_score": 0.178,
+        "reputation": 0.44,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 108.46,
+        "anomaly_score": 0.182,
+        "reputation": 0.23,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 107.84,
+        "anomaly_score": 0.081,
+        "reputation": 0.71,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 108.08,
+      "median": 108.03,
+      "trimmed": 108.06,
+      "weighted": 108.06,
+      "ai": 108.06
+    },
+    "ground_truth": 108.19
+  },
+  {
+    "round_id": 39,
+    "final_value": 109.21,
+    "confidence": 0.986,
+    "proof_hash": "0x6830b3f24cd22e04c863966666718933c6b650a5c8869cfcfd601ad0b4cc1a20",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 108.87,
+        "anomaly_score": 0.056,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 109.34,
+        "anomaly_score": 0.109,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 109.57,
+        "anomaly_score": 0.119,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 109.43,
+        "anomaly_score": 0.092,
+        "reputation": 0.97,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 108.81,
+        "anomaly_score": 0.119,
+        "reputation": 0.9,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 109.16,
+        "anomaly_score": 0.149,
+        "reputation": 0.45,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 109.2,
+      "median": 109.25,
+      "trimmed": 109.2,
+      "weighted": 109.21,
+      "ai": 109.21
+    },
+    "ground_truth": 109.17
+  },
+  {
+    "round_id": 40,
+    "final_value": 109.59,
+    "confidence": 0.6071,
+    "proof_hash": "0x983c8f2adb92680c0a604f72f1e249c7732051faec8f5019dca4bc32b50bdc28",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 109.87,
+        "anomaly_score": 0.07,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 109.6,
+        "anomaly_score": 0.085,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 109.87,
+        "anomaly_score": 0.167,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 109.35,
+        "anomaly_score": 0.174,
+        "reputation": 0.98,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 109.25,
+        "anomaly_score": 0.089,
+        "reputation": 0.91,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 116.11,
+        "anomaly_score": 0.724,
+        "reputation": 0.4,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 84.61,
+        "anomaly_score": 0.95,
+        "reputation": 0.2,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 106.95,
+      "median": 109.6,
+      "trimmed": 109.59,
+      "weighted": 109.16,
+      "ai": 109.59
+    },
+    "ground_truth": 109.61
+  },
+  {
+    "round_id": 41,
+    "final_value": 109.37,
+    "confidence": 0.9881,
+    "proof_hash": "0x7e3f8ded6bb9588c6e26ead7453144b72f4fa61637186ad99295c802a630ab53",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 109.64,
+        "anomaly_score": 0.069,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 109.16,
+        "anomaly_score": 0.057,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 109.3,
+        "anomaly_score": 0.094,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 109.23,
+        "anomaly_score": 0.2,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 109.17,
+        "anomaly_score": 0.197,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 109.59,
+        "anomaly_score": 0.098,
+        "reputation": 0.41,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 109.18,
+        "anomaly_score": 0.052,
+        "reputation": 0.21,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 109.8,
+        "anomaly_score": 0.166,
+        "reputation": 0.72,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 109.38,
+      "median": 109.27,
+      "trimmed": 109.35,
+      "weighted": 109.37,
+      "ai": 109.37
+    },
+    "ground_truth": 109.51
+  },
+  {
+    "round_id": 42,
+    "final_value": 108.94,
+    "confidence": 0.8532,
+    "proof_hash": "0x53d8333f2cd3930ef8762010dbcb69af6a0be0490f00a4a39989a940d8280f23",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 109.08,
+        "anomaly_score": 0.153,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 109.03,
+        "anomaly_score": 0.195,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 109.19,
+        "anomaly_score": 0.184,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 112,
+        "anomaly_score": 0.64,
+        "reputation": 0.94,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 108.53,
+        "anomaly_score": 0.184,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 108.75,
+        "anomaly_score": 0.082,
+        "reputation": 0.42,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 109.43,
+      "median": 109.06,
+      "trimmed": 109.01,
+      "weighted": 109.49,
+      "ai": 108.94
+    },
+    "ground_truth": 108.9
+  },
+  {
+    "round_id": 43,
+    "final_value": 107.67,
+    "confidence": 0.986,
+    "proof_hash": "0x7eac00d9ce8af4f99de7b1591546eb370935f378cec635310a7b2d549d35f4e5",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 107.55,
+        "anomaly_score": 0.091,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 107.43,
+        "anomaly_score": 0.098,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 107.48,
+        "anomaly_score": 0.154,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 107.72,
+        "anomaly_score": 0.178,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 107.91,
+        "anomaly_score": 0.051,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 108.21,
+        "anomaly_score": 0.102,
+        "reputation": 0.43,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 107.97,
+        "anomaly_score": 0.133,
+        "reputation": 0.22,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 107.75,
+      "median": 107.72,
+      "trimmed": 107.73,
+      "weighted": 107.67,
+      "ai": 107.67
+    },
+    "ground_truth": 107.81
+  },
+  {
+    "round_id": 44,
+    "final_value": 106.21,
+    "confidence": 0.625,
+    "proof_hash": "0xb0893b0afad6f71307076e601c0acf68ffd000890a77365c94432628162c8b23",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 106.01,
+        "anomaly_score": 0.11,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 106.51,
+        "anomaly_score": 0.182,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 105.94,
+        "anomaly_score": 0.084,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 106.21,
+        "anomaly_score": 0.133,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 106.27,
+        "anomaly_score": 0.158,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 106.52,
+        "anomaly_score": 0.077,
+        "reputation": 0.44,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 118.32,
+        "anomaly_score": 0.795,
+        "reputation": 0.2,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 81.32,
+        "anomaly_score": 0.916,
+        "reputation": 0.67,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 104.64,
+      "median": 106.24,
+      "trimmed": 106.24,
+      "weighted": 103.91,
+      "ai": 106.21
+    },
+    "ground_truth": 106.32
+  },
+  {
+    "round_id": 45,
+    "final_value": 104.53,
+    "confidence": 0.6717,
+    "proof_hash": "0x76647066da10e2020a5bc1fcbeb2503ff0330df83d8c434140dccb698a5d34e2",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 104.83,
+        "anomaly_score": 0.117,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 104.65,
+        "anomaly_score": 0.121,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 104.24,
+        "anomaly_score": 0.161,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 100,
+        "anomaly_score": 0.857,
+        "reputation": 0.91,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 111,
+        "anomaly_score": 0.69,
+        "reputation": 0.9,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 104.21,
+        "anomaly_score": 0.1,
+        "reputation": 0.45,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 104.82,
+      "median": 104.44,
+      "trimmed": 104.48,
+      "weighted": 104.85,
+      "ai": 104.53
+    },
+    "ground_truth": 104.5
+  },
+  {
+    "round_id": 46,
+    "final_value": 102.35,
+    "confidence": 0.9865,
+    "proof_hash": "0xb4badbc4b24365cadb9eba56b6e514fe928836337504f90e99ee44441ba4d79f",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 102.07,
+        "anomaly_score": 0.066,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 102.51,
+        "anomaly_score": 0.084,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 102.24,
+        "anomaly_score": 0.193,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 102.67,
+        "anomaly_score": 0.144,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 102.29,
+        "anomaly_score": 0.136,
+        "reputation": 0.91,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 102.08,
+        "anomaly_score": 0.11,
+        "reputation": 0.46,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 102.81,
+        "anomaly_score": 0.112,
+        "reputation": 0.21,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 102.38,
+      "median": 102.29,
+      "trimmed": 102.36,
+      "weighted": 102.35,
+      "ai": 102.35
+    },
+    "ground_truth": 102.45
+  },
+  {
+    "round_id": 47,
+    "final_value": 100.17,
+    "confidence": 0.9888,
+    "proof_hash": "0x589a748491f06d1de3131884be48efd9608039ef4cc8903833e1f90658efcef3",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 99.94,
+        "anomaly_score": 0.15,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 100.1,
+        "anomaly_score": 0.117,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 100.31,
+        "anomaly_score": 0.077,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 99.87,
+        "anomaly_score": 0.149,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 100.31,
+        "anomaly_score": 0.134,
+        "reputation": 0.92,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 100.22,
+        "anomaly_score": 0.139,
+        "reputation": 0.47,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 100.48,
+        "anomaly_score": 0.15,
+        "reputation": 0.22,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 100.51,
+        "anomaly_score": 0.147,
+        "reputation": 0.68,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 100.22,
+      "median": 100.27,
+      "trimmed": 100.23,
+      "weighted": 100.17,
+      "ai": 100.17
+    },
+    "ground_truth": 100.27
+  },
+  {
+    "round_id": 48,
+    "final_value": 97.9,
+    "confidence": 0.6667,
+    "proof_hash": "0x6ad82bd47c4bcb32140cccb1d740531ad2ca2f1c44c21d6ded53485db41a6ccb",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 97.79,
+        "anomaly_score": 0.066,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 97.83,
+        "anomaly_score": 0.16,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 97.75,
+        "anomaly_score": 0.126,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 98.32,
+        "anomaly_score": 0.122,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 97.82,
+        "anomaly_score": 0.153,
+        "reputation": 0.93,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 73.09,
+        "anomaly_score": 0.86,
+        "reputation": 0.42,
+        "status": "ALERT"
+      }
+    ],
+    "methods": {
+      "mean": 93.77,
+      "median": 97.81,
+      "trimmed": 97.8,
+      "weighted": 95.92,
+      "ai": 97.9
+    },
+    "ground_truth": 98.09
+  },
+  {
+    "round_id": 49,
+    "final_value": 96.43,
+    "confidence": 0.9536,
+    "proof_hash": "0x2c3620a295fbac141547bae4afdf18c6a1bbc698f5504e63a99c293abac22d26",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 95.82,
+        "anomaly_score": 0.187,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 95.77,
+        "anomaly_score": 0.155,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 96,
+        "anomaly_score": 0.064,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 96.33,
+        "anomaly_score": 0.087,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 98.6,
+        "anomaly_score": 0.464,
+        "reputation": 0.94,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 96.07,
+        "anomaly_score": 0.089,
+        "reputation": 0.43,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 96,
+        "anomaly_score": 0.105,
+        "reputation": 0.23,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 96.37,
+      "median": 96,
+      "trimmed": 96.04,
+      "weighted": 96.43,
+      "ai": 96.43
+    },
+    "ground_truth": 95.99
+  },
+  {
+    "round_id": 50,
+    "final_value": 94.14,
+    "confidence": 0.8228,
+    "proof_hash": "0x74bcb95e19624524c4afb42bed1e98d1e157912f1fbea61b754e40498fffad7c",
+    "per_oracle": [
+      {
+        "oracle_id": "oracle_1",
+        "value": 94.03,
+        "anomaly_score": 0.199,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_2",
+        "value": 93.85,
+        "anomaly_score": 0.12,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_3",
+        "value": 94.28,
+        "anomaly_score": 0.105,
+        "reputation": 0.99,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_4",
+        "value": 94.37,
+        "anomaly_score": 0.083,
+        "reputation": 0.96,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_5",
+        "value": 93.96,
+        "anomaly_score": 0.139,
+        "reputation": 0.95,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_6",
+        "value": 94.33,
+        "anomaly_score": 0.054,
+        "reputation": 0.44,
+        "status": "NORMAL"
+      },
+      {
+        "oracle_id": "oracle_7",
+        "value": 100.61,
+        "anomaly_score": 0.785,
+        "reputation": 0.2,
+        "status": "ALERT"
+      },
+      {
+        "oracle_id": "oracle_8",
+        "value": 94.29,
+        "anomaly_score": 0.199,
+        "reputation": 0.69,
+        "status": "NORMAL"
+      }
+    ],
+    "methods": {
+      "mean": 94.96,
+      "median": 94.28,
+      "trimmed": 94.21,
+      "weighted": 94.35,
+      "ai": 94.14
+    },
+    "ground_truth": 94.11
+  }
+]
