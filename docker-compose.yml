@@ -1,6 +1,7 @@
 services:
   # 1. Nœud local Hardhat (Blockchain EVM locale)
   hardhat-node:
+    image: oraclebench-hardhat:latest
     build:
       context: ./smart-contract
       dockerfile: Dockerfile
@@ -16,11 +17,9 @@ services:
       timeout: 5s
       retries: 5
 
-  # 2. Déployeur automatique du contrat OracleBench sur le nœud local
+  # 2. Déployeur automatique du contrat OracleBench sur le nœud local (réutilise l'image hardhat-node)
   contract-deployer:
-    build:
-      context: ./smart-contract
-      dockerfile: Dockerfile
+    image: oraclebench-hardhat:latest
     container_name: oraclebench-deployer
     depends_on:
       hardhat-node:
