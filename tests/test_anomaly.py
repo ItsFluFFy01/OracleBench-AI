@@ -103,3 +103,19 @@ def test_ground_truth_column_is_ignored():
     a = detect_anomalies(cur, hist)
     cur["ground_truth"] = 100.0
     assert detect_anomalies(cur, hist) == a
+
+def test_modes_stat_and_if_and_invalid():
+    hist = make_history()
+    cur = round_df(31, [100.1, 99.8, 100.3, 99.9, 100.2, 400.0])
+    stat = detect_anomalies(cur, hist, cfg={"mode": "stat"})
+    ifo = detect_anomalies(cur, hist, cfg={"mode": "if"})
+    assert stat["O06"] >= 0.9
+    assert 0.0 <= ifo["O06"] <= 1.0
+    with pytest.raises(ValueError):
+        AnomalyDetector({"mode": "nimporte"})
+
+
+def test_if_mode_without_history_returns_zero():
+    cur = round_df(1, [100.0, 100.2, 99.9, 100.1, 350.0])
+    s = detect_anomalies(cur, None, cfg={"mode": "if"})
+    assert all(v == 0.0 for v in s.values())

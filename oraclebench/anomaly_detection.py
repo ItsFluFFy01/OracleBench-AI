@@ -42,6 +42,11 @@ class DetectorConfig:
     frozen_rule: bool = True       # règle stale (valeur exactement répétée)
     frozen_full: float = 0.3       # frozen_rate à partir duquel le score vaut 1
     seed: int = 42
+    mode: str = "hybrid"           # "hybrid" | "stat" | "if"  (ablation pour la RQ2)
+
+    def __post_init__(self):
+        if self.mode not in ("hybrid", "stat", "if"):
+            raise ValueError(f"mode invalide: {self.mode!r} (hybrid, stat ou if)")
 
     @classmethod
     def from_dict(cls, d: Mapping | None) -> "DetectorConfig":
@@ -167,11 +172,22 @@ class AnomalyDetector:
         cur_f = feats[feats["round_id"] == rid]
         train_f = feats[feats["round_id"] != rid]
 
-        final = self._stat_score(cur_f)
-        if train_f["round_id"].nunique() >= self.cfg.min_history_rounds:
+        mode = self.cfg.mode
+        stat = self._stat_score(cur_f)
+        ready = train_f["round_id"].nunique() >= self.cfg.min_history_rounds
+        if_s = None
+        if mode != "stat" and ready:
             self._maybe_fit(train_f, rid)
-            final = np.maximum(final, self._if_score(cur_f))
+            if_s = self._if_score(cur_f)
 
+        if mode == "stat":
+            final = stat
+        elif mode == "if":
+            # sans historique suffisant, l'Isolation Forest ne peut pas juger : 0.0
+            final = if_s if if_s is not None else np.zeros(len(cur_f))
+        else:  # hybrid
+            final = stat if if_s is None else np.maximum(stat, if_s)
+            
         scores.update(dict(zip(cur_f["oracle_id"], np.round(final, 4))))
         return scores
 
