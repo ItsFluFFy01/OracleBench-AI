@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Observation - PROPOSITION v0, à valider par A, B et C",
+  "description": "Schéma d'une observation brute ou synthétique émise par un nœud oracle",
+  "type": "object",
+  "required": ["oracle_id", "round_id", "timestamp", "value", "profile"],
+  "properties": {
+    "oracle_id": {
+      "type": "string",
+      "description": "Identifiant unique du nœud oracle (ex: 'oracle_1')"
+    },
+    "round_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Numéro du round de benchmark"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Horodatage ISO 8601 de l'observation"
+    },
+    "value": {
+      "type": "number",
+      "description": "Valeur rapportée par le nœud oracle"
+    },
+    "profile": {
+      "type": "string",
+      "enum": ["NORMAL", "NOISY", "BIASED", "SPIKE", "STALE", "COLLUSION"],
+      "description": "Profil comportemental du nœud pour ce round"
+    }
+  },
+  "additionalProperties": false
+}

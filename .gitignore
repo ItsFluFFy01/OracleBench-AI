@@ -1,0 +1,12 @@
+# Dépendances Node & Python
+node_modules/
+.venv/
+__pycache__/
+
+# Fichiers d'environnement & builds
+.env
+dist/
+
+# Hardhat & artefacts Smart Contract
+artifacts/
+cache/
