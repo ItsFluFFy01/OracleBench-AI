@@ -1,105 +1,63 @@
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceLine,
-  Cell,
-} from "recharts";
-import { Users, AlertCircle, CheckCircle } from "lucide-react";
+import { Users, AlertCircle, CheckCircle, TrendingUp } from "lucide-react";
+import { StatChip } from "../components/StatChip";
+import { DonutCard } from "../components/DonutCard";
+import { BarCard }   from "../components/BarCard";
 
 export function OraclesView({ round }) {
-  if (!round) return <div className="card">Chargement des oracles...</div>;
+  if (!round) return <div className="chart-card"><p className="chart-desc">Chargement des oracles...</p></div>;
 
-  const chartData = round.per_oracle.map((o) => ({
+  const alertCount  = round.per_oracle.filter((o) => o.status === "ALERT").length;
+  const normalCount = round.per_oracle.length - alertCount;
+  const avgRep      = (round.per_oracle.reduce((s, o) => s + o.reputation, 0) / round.per_oracle.length).toFixed(2);
+  const avgAnomaly  = (round.per_oracle.reduce((s, o) => s + o.anomaly_score, 0) / round.per_oracle.length).toFixed(3);
+
+  const barData = round.per_oracle.map((o) => ({
     name: o.oracle_id,
-    valeur: o.value,
-    score: o.anomaly_score,
-    reputation: o.reputation,
+    value: o.value,
     status: o.status,
-    ecart: +(o.value - round.final_value).toFixed(2),
   }));
 
-  return (
-    <div>
-      {/* Graphique de dispersion / comparaison des valeurs */}
-      <div className="chart-card">
-        <div className="chart-header">
-          <div>
-            <h3 className="chart-title">Rapports des Oracles vs Valeur Finale Retenue</h3>
-            <p className="chart-desc">
-              Visualisation des déviations : les nœuds en alerte (rouge) s'écartent fortement du consensus.
-            </p>
-          </div>
-        </div>
+  const donutData = [
+    { name: "NORMAL", value: normalCount, color: "var(--donut-normal)" },
+    { name: "ALERT",  value: alertCount,  color: "var(--donut-alert)"  },
+  ];
 
-        <div style={{ width: "100%", height: 320 }}>
-          <ResponsiveContainer>
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
-              <XAxis dataKey="name" stroke="#94a3b8" />
-              <YAxis stroke="#94a3b8" domain={["auto", "auto"]} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#1e293b",
-                  borderColor: "#334155",
-                  borderRadius: "8px",
-                  color: "#f8fafc",
-                }}
-                formatter={(val, name, item) => [
-                  `${val} (Écart : ${item.payload.ecart > 0 ? "+" : ""}${item.payload.ecart})`,
-                  "Valeur rapportée",
-                ]}
-              />
-              <ReferenceLine
-                y={round.final_value}
-                stroke="#6366f1"
-                strokeWidth={2}
-                strokeDasharray="4 4"
-                label={{
-                  value: `Valeur Finale IA : ${round.final_value}`,
-                  fill: "#818cf8",
-                  position: "top",
-                  fontSize: 12,
-                }}
-              />
-              {round.ground_truth !== undefined && (
-                <ReferenceLine
-                  y={round.ground_truth}
-                  stroke="#10b981"
-                  strokeWidth={2}
-                  label={{
-                    value: `Vérité Terrain : ${round.ground_truth}`,
-                    fill: "#34d399",
-                    position: "bottom",
-                    fontSize: 12,
-                  }}
-                />
-              )}
-              <Bar dataKey="valeur" radius={[4, 4, 0, 0]}>
-                {chartData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={entry.status === "ALERT" ? "#ef4444" : "#6366f1"}
-                  />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+  return (
+    <div className="view-grid">
+      {/* ── Ligne 1 : StatChips ── */}
+      <div className="stat-row">
+        <StatChip label="Total Oracles"       value={round.per_oracle.length} icon={Users}        badge={`Round #${round.round_id}`} badgeType="neu" />
+        <StatChip label="Alertes (IF)"         value={alertCount}              icon={AlertCircle}  badge={alertCount > 0 ? "ALERT" : "OK"} badgeType={alertCount > 0 ? "err" : "ok"} />
+        <StatChip label="Réputation Moyenne"   value={`${(avgRep * 100).toFixed(0)}%`} icon={TrendingUp} badge={avgRep >= 0.8 ? "Haute" : "Moyenne"} badgeType={avgRep >= 0.8 ? "ok" : "warn"} />
+        <StatChip label="Score Anomalie Moyen" value={avgAnomaly}              icon={CheckCircle}  badgeType="neu" />
       </div>
 
-      {/* Tableau détaillé des oracles */}
-      <div className="card">
-        <div className="card-title">
-          <span>Détail des Observations par Nœud Oracle (Round #{round.round_id})</span>
-          <Users size={18} />
-        </div>
+      {/* ── Ligne 2 : Barres oracles + Donut NORMAL/ALERT ── */}
+      <div className="chart-row-2">
+        <BarCard
+          title="Valeurs Rapportées par Nœud Oracle"
+          desc="Chaque barre représente la valeur soumise par un oracle pour ce round"
+          data={barData}
+          dataKey="value"
+          name="Valeur"
+          height={280}
+        />
+        <DonutCard
+          title="Répartition NORMAL / ALERT"
+          data={donutData}
+          centerLabel="oracles"
+        />
+      </div>
 
+      {/* ── Ligne 3 : Tableau ── */}
+      <div className="chart-card">
+        <div className="chart-header">
+          <h3 className="chart-title">
+            <Users size={15} style={{ display: "inline", marginRight: 6 }} />
+            Détail par Nœud Oracle — Round #{round.round_id}
+          </h3>
+        </div>
         <div className="table-container">
           <table>
             <thead>
@@ -115,49 +73,29 @@ export function OraclesView({ round }) {
             <tbody>
               {round.per_oracle.map((o) => {
                 const isAlert = o.status === "ALERT";
-                const diff = +(o.value - round.final_value).toFixed(2);
+                const diff    = +(o.value - round.final_value).toFixed(2);
                 return (
                   <tr key={o.oracle_id}>
-                    <td className="mono" style={{ fontWeight: 600 }}>
-                      {o.oracle_id}
-                    </td>
-                    <td className="mono" style={{ fontWeight: 600 }}>
-                      {o.value.toFixed(2)}
-                    </td>
+                    <td className="mono" style={{ fontWeight: 600 }}>{o.oracle_id}</td>
+                    <td className="mono" style={{ fontWeight: 600 }}>{o.value.toFixed(2)}</td>
                     <td>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        <div
-                          className="progress-bar-bg"
-                          style={{ width: "60px", marginTop: 0 }}
-                        >
+                        <div className="progress-bar-bg" style={{ width: 60, marginTop: 0 }}>
                           <div
                             className="progress-bar-fill"
                             style={{
                               width: `${Math.min(100, Math.round(o.anomaly_score * 100))}%`,
-                              background: isAlert ? "var(--accent-danger)" : "var(--accent-success)",
+                              background: isAlert ? "var(--err-text)" : "var(--ok-text)",
                             }}
                           />
                         </div>
-                        <span className="mono" style={{ fontSize: "0.8rem" }}>
-                          {o.anomaly_score.toFixed(3)}
-                        </span>
+                        <span className="mono" style={{ fontSize: "0.8rem" }}>{o.anomaly_score.toFixed(3)}</span>
                       </div>
                     </td>
-                    <td className="mono">
-                      <span
-                        style={{
-                          color: o.reputation >= 0.8 ? "var(--accent-success)" : "var(--accent-warning)",
-                        }}
-                      >
-                        {(o.reputation * 100).toFixed(0)}%
-                      </span>
+                    <td className="mono" style={{ color: o.reputation >= 0.8 ? "var(--ok-text)" : "var(--warn-text)" }}>
+                      {(o.reputation * 100).toFixed(0)}%
                     </td>
-                    <td
-                      className="mono"
-                      style={{
-                        color: diff === 0 ? "var(--text-muted)" : Math.abs(diff) > 2 ? "var(--accent-danger)" : "var(--text-main)",
-                      }}
-                    >
+                    <td className="mono" style={{ color: Math.abs(diff) > 2 ? "var(--err-text)" : "var(--text-body)" }}>
                       {diff > 0 ? `+${diff}` : diff}
                     </td>
                     <td>
