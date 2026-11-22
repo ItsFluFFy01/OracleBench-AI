@@ -25,12 +25,14 @@ services:
       hardhat-node:
         condition: service_started
     command: >
-      sh -c "echo 'Attente de démarrage du nœud Hardhat...' &&
-             sleep 4 &&
+      sh -c "echo 'Attente de disponibilite du noeud Hardhat...' &&
+             node -e \"const http=require('http');function ping(){http.get('http://hardhat-node:8545',r=>process.exit(0)).on('error',()=>setTimeout(ping,1000))}ping()\" &&
+             echo 'Noeud Hardhat operationnel, deploiement en cours...' &&
              npx hardhat run scripts/deploy.js --network localhost &&
-             echo 'Contrat OracleBench déployé avec succès.'"
+             echo 'Contrat OracleBench deploye avec succes.'"
     environment:
       - HARDHAT_NETWORK=localhost
+      - HARDHAT_NODE_URL=http://hardhat-node:8545
     volumes:
       - shared-deployments:/app/deployments
     networks:

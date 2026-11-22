@@ -1,5 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 
+const nodeUrl = process.env.HARDHAT_NODE_URL || "http://127.0.0.1:8545";
+
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
@@ -16,7 +18,7 @@ module.exports = {
       chainId: 31337,
     },
     localhost: {
-      url: "http://127.0.0.1:8545",
+      url: nodeUrl,
       chainId: 31337,
     },
   },
