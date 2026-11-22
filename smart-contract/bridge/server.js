@@ -21,6 +21,31 @@ let wallet;
 let oracleBenchContract;
 let contractAddress;
 
+// Helper pour trouver les fichiers de déploiement (gère Docker /app et local ..)
+function findDeploymentFile(fileName) {
+  const possiblePaths = [
+    path.join(__dirname, "deployments", fileName),
+    path.join(__dirname, "..", "deployments", fileName),
+    path.join("/app", "deployments", fileName),
+  ];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) return p;
+  }
+  return null;
+}
+
+function findArtifactPath() {
+  const possiblePaths = [
+    path.join(__dirname, "artifacts", "contracts", "OracleBench.sol", "OracleBench.json"),
+    path.join(__dirname, "..", "artifacts", "contracts", "OracleBench.sol", "OracleBench.json"),
+    path.join("/app", "artifacts", "contracts", "OracleBench.sol", "OracleBench.json"),
+  ];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) return p;
+  }
+  return null;
+}
+
 // Fonction de chargement dynamique du contrat et de son ABI
 function initContract() {
   provider = new ethers.JsonRpcProvider(RPC_URL, undefined, {
@@ -28,36 +53,39 @@ function initContract() {
   });
   wallet = new ethers.Wallet(PRIVATE_KEY, provider);
 
+  let loadedAbi = null;
+
   // Recherche de l'adresse du contrat
   if (process.env.CONTRACT_ADDRESS && process.env.CONTRACT_ADDRESS.trim() !== "") {
     contractAddress = process.env.CONTRACT_ADDRESS.trim();
   } else {
-    const localhostPath = path.join(__dirname, "..", "deployments", "localhost.json");
-    const hardhatPath = path.join(__dirname, "..", "deployments", "hardhat.json");
-    if (fs.existsSync(localhostPath)) {
+    const localhostPath = findDeploymentFile("localhost.json");
+    const hardhatPath = findDeploymentFile("hardhat.json");
+    if (localhostPath) {
       const data = JSON.parse(fs.readFileSync(localhostPath, "utf8"));
       contractAddress = data.address;
-    } else if (fs.existsSync(hardhatPath)) {
+      if (data.abi && Array.isArray(data.abi) && data.abi.length > 0) {
+        loadedAbi = data.abi;
+      }
+    } else if (hardhatPath) {
       const data = JSON.parse(fs.readFileSync(hardhatPath, "utf8"));
       contractAddress = data.address;
+      if (data.abi && Array.isArray(data.abi) && data.abi.length > 0) {
+        loadedAbi = data.abi;
+      }
     }
   }
 
-  // Recherche de l'ABI
-  const artifactPath = path.join(
-    __dirname,
-    "..",
-    "artifacts",
-    "contracts",
-    "OracleBench.sol",
-    "OracleBench.json"
-  );
+  let abi = loadedAbi;
+  if (!abi) {
+    const artifactPath = findArtifactPath();
+    if (artifactPath) {
+      const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
+      abi = artifact.abi;
+    }
+  }
 
-  let abi;
-  if (fs.existsSync(artifactPath)) {
-    const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
-    abi = artifact.abi;
-  } else {
+  if (!abi) {
     // ABI minimale de secours si les artefacts ne sont pas générés
     abi = [
       "function updateOracleValue(uint256 roundId, int256 finalValue, uint256 confidence, bytes32 proofHash) external",
@@ -95,6 +123,9 @@ try {
  */
 app.get("/health", async (req, res) => {
   try {
+    if (!contractAddress) {
+      initContract();
+    }
     let blockNumber = null;
     let networkName = "disconnected";
     if (provider) {
