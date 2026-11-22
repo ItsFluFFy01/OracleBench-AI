@@ -555,3 +555,356 @@
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+
+/* ===================================================================
+   MODE LIVE — NOUVEAUX COMPOSANTS
+   =================================================================== */
+
+/* ───── Live Controls ───── */
+.live-controls-card {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.live-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.live-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.live-control-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.live-control-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.live-params-grid {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border);
+}
+
+/* ───── Step Card ───── */
+.calculation-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow-hover);
+  background: var(--bg-active);
+}
+
+.step-card.completed {
+  border-left: 4px solid var(--ok-text);
+}
+
+.step-card.pending {
+  opacity: 0.7;
+}
+
+.step-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.step-number-pill {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.step-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.step-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.step-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.step-card-content {
+  font-size: 0.85rem;
+}
+
+/* ───── Étape 1 : Oracle Pills ───── */
+.oracle-pills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.6rem;
+}
+
+.oracle-pill {
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  transition: transform 0.2s;
+}
+
+.oracle-pill:hover {
+  transform: translateY(-2px);
+}
+
+.oracle-pill-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.oracle-pill-val {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.oracle-pill-profile {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 0.2rem;
+}
+
+.pill-normal    { border-left: 3px solid var(--ok-text); }
+.pill-spike     { border-left: 3px solid var(--err-text); }
+.pill-biased    { border-left: 3px solid var(--warn-text); }
+.pill-stale     { border-left: 3px solid var(--info-text); }
+.pill-collusion { border-left: 3px solid #ec4899; }
+
+/* ───── Étape 2 : Détection ───── */
+.oracle-detection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.6rem;
+}
+
+.detection-card {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detection-card.alert {
+  border-color: var(--err-border);
+  background: var(--err-bg);
+}
+
+.detection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.detection-score {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ───── Étape 3 : Réputation ───── */
+.reputation-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.6rem;
+}
+
+.reputation-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+
+.rep-transition {
+  color: var(--text-body);
+}
+
+.rep-delta {
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+.rep-up   { color: var(--ok-text); background: var(--ok-bg); }
+.rep-down { color: var(--err-text); background: var(--err-bg); }
+.rep-eq   { color: var(--text-muted); }
+
+/* ───── Étape 4 : Formules ───── */
+.formulas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.formula-box {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.formula-ai {
+  border-color: var(--accent);
+  background: var(--bg-active);
+  border-width: 1.5px;
+}
+
+.formula-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.formula-method-name {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text-heading);
+}
+
+.formula-error-badge {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.formula-body {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  word-break: break-all;
+}
+
+/* ───── Étape 5 : Confiance ───── */
+.confidence-calc-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+}
+
+.confidence-value-big {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+}
+
+.confidence-formula-str {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ───── Étape 6 : Blockchain ───── */
+.blockchain-step-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.bc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.bc-field-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.hash-val {
+  font-size: 0.75rem;
+  color: var(--info-text);
+  word-break: break-all;
+}
+
+.blockchain-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+
+/* ───── Live charts container ───── */
+.live-charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}

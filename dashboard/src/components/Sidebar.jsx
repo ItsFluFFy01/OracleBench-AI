@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import {
-  LayoutDashboard, Users, GitCompare, Blocks, BarChart3,
+  LayoutDashboard, Users, GitCompare, Blocks, BarChart3, Radio,
   ChevronRight, Download, Menu, X,
 } from "lucide-react";
 
 const NAV_GROUPS = [
+  {
+    label: "Temps Réel",
+    color: "var(--grad-kpi-1-a)",
+    items: [
+      { id: "live",       label: "Live (Temps Réel)", icon: Radio },
+    ],
+  },
   {
     label: "Analyse",
     color: "var(--accent)",

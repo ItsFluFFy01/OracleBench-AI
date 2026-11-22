@@ -7,9 +7,11 @@ import { OraclesView }     from "./views/OraclesView";
 import { ComparisonView }  from "./views/ComparisonView";
 import { BlockchainView }  from "./views/BlockchainView";
 import { ExperimentsView } from "./views/ExperimentsView";
+import { LiveView }        from "./views/LiveView";
 import { getRounds, getRoundById } from "./api";
 
 const VIEW_TITLES = {
+  live:        { title: "Mode Live — Calculs en Direct", sub: "Révélation pas-à-pas et simulation des étapes d'un round en temps réel" },
   round:       { title: "Analyse du Round",         sub: "Valeur agrégée, confiance et intégrité cryptographique" },
   oracles:     { title: "Nœuds Oracles",             sub: "Détail des observations et détection d'anomalies (Isolation Forest)" },
   comparison:  { title: "Comparaison des Méthodes",  sub: "Benchmarking des stratégies d'agrégation" },
@@ -61,7 +63,7 @@ export function App() {
             <div className="top-bar-sub">{sub}</div>
           </div>
           <div className="top-bar-right">
-            {activeTab !== "experiments" && (
+            {activeTab !== "experiments" && activeTab !== "live" && (
               <RoundSelector
                 currentRoundId={selectedRoundId}
                 totalRounds={rounds.length || 50}
@@ -81,6 +83,7 @@ export function App() {
             </div>
           ) : (
             <>
+              {activeTab === "live"        && <LiveView />}
               {activeTab === "round"       && <RoundView      round={currentRound} />}
               {activeTab === "oracles"     && <OraclesView    round={currentRound} />}
               {activeTab === "comparison"  && <ComparisonView round={currentRound} />}
