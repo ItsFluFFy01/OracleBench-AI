@@ -6,3 +6,6 @@ flask-cors
 pyarrow
 pytest
 pyyaml
+sqlalchemy
+psycopg[binary]
+requests
