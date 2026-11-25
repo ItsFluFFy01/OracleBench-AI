@@ -33,7 +33,10 @@ export function App() {
       setRounds(data);
       if (data?.length > 0) {
         const found = data.find((r) => r.round_id === selectedRoundId) || data[0];
-        setCurrentRound(found);
+        const full = (found.per_oracle && found.methods)
+          ? found
+          : await getRoundById(found.round_id);
+        setCurrentRound(full || found);
         setSelectedRoundId(found.round_id);
       }
     } finally {

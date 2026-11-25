@@ -14,7 +14,8 @@ export async function getRounds() {
   try {
     const res = await fetch(`${config.apiUrl}/rounds`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
+    const data = await res.json();
+    return Array.isArray(data) ? data : (data.rounds || []);
   } catch (error) {
     console.warn("[API] Échec d'accès au backend Flask, bascule sur les mocks :", error);
     return roundsMock;

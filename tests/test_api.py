@@ -109,6 +109,12 @@ def test_get_round_and_404(client):
     assert client.get("/round/99").status_code == 404
 
 
+def test_round_plural_alias(client):
+    posted = client.post("/round", json=payload(1, GOOD)).get_json()
+    got = client.get("/rounds/1").get_json()
+    assert got["proof_hash"] == posted["proof_hash"]
+
+
 def test_list_rounds_order_limit_and_bad_params(client):
     for r in (1, 2, 3):
         client.post("/round", json=payload(r, GOOD))
@@ -121,8 +127,25 @@ def test_list_rounds_order_limit_and_bad_params(client):
         assert client.get(f"/rounds?{q}").status_code == 400
 
 
+def test_list_rounds_format_array(client):
+    for r in (1, 2):
+        client.post("/round", json=payload(r, GOOD))
+    res = client.get("/rounds?format=array").get_json()
+    assert isinstance(res, list) and len(res) == 2
+    res_full = client.get("/rounds?format=array&full=true").get_json()
+    assert isinstance(res_full, list) and len(res_full) == 2
+    assert "methods" in res_full[0] and "per_oracle" in res_full[0]
+
+
 def test_list_rounds_empty(client):
     assert client.get("/rounds").get_json() == {"run_id": "api", "total": 0, "rounds": []}
+
+
+def test_experiments_summary_endpoint(client):
+    res = client.get("/experiments/summary")
+    assert res.status_code == 200
+    data = res.get_json()
+    assert "methods" in data and "detection" in data
 
 
 def test_reputation_endpoint(client):

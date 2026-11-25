@@ -43,6 +43,13 @@ class HttpBridge:
             r = requests.post(f"{self.base_url}/record", json=body, timeout=self.timeout)
         except requests.RequestException as e:
             raise BridgeError(f"pont injoignable : {type(e).__name__}") from e
+        if r.status_code == 422:
+            try:
+                data = r.json()
+                return {"status": data.get("status", "REJECTED"), "tx_hash": None, "gas_used": None,
+                        "reason": data.get("reason", "confidence_below_threshold")}
+            except Exception:
+                return {"status": "REJECTED", "tx_hash": None, "gas_used": None}
         if r.status_code >= 400:
             raise BridgeError(f"le pont a répondu HTTP {r.status_code}")
         try:

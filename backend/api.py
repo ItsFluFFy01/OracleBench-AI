@@ -3,9 +3,11 @@ API Flask d'OracleBench-AI (Personne B).
 
     GET  /health                 état du service
     POST /round                  traite un round (détection, réputation, agrégation, stockage, pont)
-    GET  /round/<id>             résultat complet d'un round
+    GET  /round/<id>             résultat complet d'un round (alias: /rounds/<id>)
     GET  /rounds?limit=&order=   liste résumée (order = asc | desc, défaut desc)
+                                 (?format=array pour tableau direct OpenAPI/dashboard)
     GET  /reputation             réputations actuelles
+    GET  /experiments/summary    synthèse globale des métriques (pour le dashboard)
     POST /round/<id>/record      renvoie un round au pont (après une panne du pont)
 
 Corps de POST /round :
@@ -16,8 +18,8 @@ Corps de POST /round :
 
 Règles : round_id strictement croissant (409 sinon) ; valeurs numériques finies (omettre un
 oracle qui n'a pas répondu) ; la valeur n'est envoyée au pont que si
-confidence >= CHAIN_MIN_CONFIDENCE (aligner sur le seuil du smart contract), sinon "SKIPPED".
-Si le pont est en panne, le round reste enregistré avec chain_status "ERROR".
+confidence >= CHAIN_MIN_CONFIDENCE (aligner sur le seuil du smart contract, 0.70 par défaut),
+sinon "SKIPPED". Si le pont est en panne, le round reste enregistré avec chain_status "ERROR".
 
 IMPORTANT déploiement : l'état (réputations) est en mémoire -> UN SEUL processus worker
 (ex. gunicorn --workers 1 --threads 4 "backend.api:create_app()").
@@ -95,10 +97,10 @@ def _err(status: int, message: str, details=None):
 def create_app(store=None, bridge=None, processor=None, config: dict | None = None) -> Flask:
     cfg = {
         "run_id": os.getenv("RUN_ID", "default"),
-        "chain_min_confidence": float(os.getenv("CHAIN_MIN_CONFIDENCE", "0.5")),
+        "chain_min_confidence": float(os.getenv("CHAIN_MIN_CONFIDENCE", "0.7")),
         "max_content_length": int(os.getenv("MAX_CONTENT_LENGTH", str(1024 * 1024))),
         "max_oracles": int(os.getenv("MAX_ORACLES", "1000")),
-        "cors_origins": os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173"),
+        "cors_origins": os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000"),
         "pipeline": None,
     }
     cfg.update(config or {})
@@ -176,6 +178,7 @@ def create_app(store=None, bridge=None, processor=None, config: dict | None = No
         return jsonify(out), 201
 
     @app.get("/round/<int:round_id>")
+    @app.get("/rounds/<int:round_id>")
     def get_round(round_id):
         r = store.get_round(round_id)
         return jsonify(r) if r is not None else _err(404, f"round {round_id} introuvable")
@@ -195,7 +198,33 @@ def create_app(store=None, bridge=None, processor=None, config: dict | None = No
         cols = ["round_id", "timestamp", "final_value", "confidence", "n_accepted", "ground_truth",
                 "proof_hash", "tx_hash", "gas_used", "chain_status"]
         rows = json.loads(df[cols].to_json(orient="records")) if len(df) else []
+
+        # Support direct format array (conformité OpenAPI et dashboard)
+        if request.args.get("format") == "array" or request.headers.get("X-Format") == "array":
+            if request.args.get("full") == "true":
+                full_rounds = [store.get_round(int(r["round_id"])) for r in rows]
+                return jsonify(json_safe(full_rounds))
+            return jsonify(json_safe(rows))
+
         return jsonify({"run_id": store.run_id, "total": store.count(), "rounds": json_safe(rows)})
+
+    @app.get("/experiments/summary")
+    def experiments_summary():
+        candidate_paths = [
+            os.getenv("EXPERIMENTS_SUMMARY_PATH"),
+            "experiments/results/experiments_summary.json",
+            "dashboard/mocks/experiments_summary.json",
+            "../dashboard/mocks/experiments_summary.json",
+            "data/experiments_summary.json",
+        ]
+        for p in candidate_paths:
+            if p and os.path.isfile(p):
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        return jsonify(json.load(f))
+                except Exception as e:
+                    log.warning("erreur lecture %s: %s", p, e)
+        return _err(404, "synthèse des expériences indisponible")
 
     @app.get("/reputation")
     def reputation():
@@ -206,7 +235,7 @@ def create_app(store=None, bridge=None, processor=None, config: dict | None = No
         r = store.get_round(round_id)
         if r is None:
             return _err(404, f"round {round_id} introuvable")
-        if r["blockchain"]["status"] == "VERIFIED":
+        if r["blockchain"]["status"] in ("VERIFIED", "CONFIRMED"):
             return _err(409, "round déjà enregistré sur la blockchain")
         with lock:
             send_to_chain(round_id)

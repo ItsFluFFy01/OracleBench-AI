@@ -18,6 +18,12 @@ class _Handler(BaseHTTPRequestHandler):
         type(self).received.append((self.path, body))
         if type(self).mode == "500":
             self.send_response(500); self.end_headers(); return
+        if type(self).mode == "422":
+            self.send_response(422)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(b'{"status":"REJECTED","reason":"confidence_below_threshold"}')
+            return
         payload = {"ok": b'{"status":"VERIFIED","tx_hash":"0xabc","gas_used":51000}',
                    "bad_json": b"not json", "no_status": b'{"tx_hash":"0x1"}'}[type(self).mode]
         self.send_response(200)
@@ -51,6 +57,13 @@ def test_http_bridge_success_and_request_format(server):
     path, body = _Handler.received[0]
     assert path == "/record"
     assert body == {"round_id": 3, "final_value": 100.2, "confidence": 0.9, "proof_hash": ARGS[3]}
+
+
+def test_http_bridge_handles_422_rejection(server):
+    _Handler.mode = "422"
+    res = HttpBridge(server).record(*ARGS)
+    assert res["status"] == "REJECTED"
+    assert res["tx_hash"] is None
 
 
 @pytest.mark.parametrize("mode", ["500", "bad_json", "no_status"])

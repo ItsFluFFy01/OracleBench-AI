@@ -58,7 +58,26 @@ services:
     networks:
       - oraclebench-network
 
-  # 4. Dashboard Web React (Vite + Nginx)
+  # 4. Backend Flask (Personne B - IA, Détection d'anomalies, Réputation, Stockage)
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: oraclebench-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - HOST=0.0.0.0
+      - BRIDGE_URL=http://bridge:3001
+      - CHAIN_MIN_CONFIDENCE=0.7
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000
+    depends_on:
+      - bridge
+    networks:
+      - oraclebench-network
+
+  # 5. Dashboard Web React (Vite + Nginx)
   dashboard:
     build:
       context: ./dashboard
@@ -69,28 +88,12 @@ services:
     environment:
       - VITE_API_URL=http://localhost:5000
       - VITE_BRIDGE_URL=http://localhost:3001
-      - VITE_USE_MOCKS=true
+      - VITE_USE_MOCKS=false
     depends_on:
       - bridge
+      - backend
     networks:
       - oraclebench-network
-
-  # 5. [NOTE INTÉGRATION] Backend Flask (Personne B)
-  # Ce service sera activé lors de l'intégration avec le travail de la Personne B.
-  # Le Dockerfile associé se trouvera dans backend/ géré par B.
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   container_name: oraclebench-backend
-  #   ports:
-  #     - "5000:5000"
-  #   environment:
-  #     - BRIDGE_URL=http://bridge:3001
-  #   depends_on:
-  #     - bridge
-  #   networks:
-  #     - oraclebench-network
 
 networks:
   oraclebench-network:

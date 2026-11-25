@@ -22,7 +22,7 @@ Le système simule des flux de données avec diverses anomalies (bruit gaussien,
                                     ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │     COLLECTOR + DÉTECTION D'ANOMALIES (Isolation Forest) + RÉPUTATION  │
-│                   [Personne B - Python / Flask]                        │
+│                   [Personne B - Python / Flask] : Port 5000            │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
                                     ▼
@@ -56,9 +56,14 @@ Le système simule des flux de données avec diverses anomalies (bruit gaussien,
 ## 2. Périmètre du Projet & Répartition
 
 - **Personne A** : Simulation des oracles, baselines d'agrégation statistique, campagne de benchmark expérimental (Python).
-- **Personne B** : IA de détection d'anomalies (Isolation Forest), modèle de mise à jour des réputations, API backend Flask (Python).
-- **Personne C (ce module)** :
-  - **Smart Contract Solidity (`smart-contract/contracts/OracleBench.sol`)** : Stockage immuable, seuil de confiance paramétrable, contrôle d'accès optimisé en gas.
+- **Personne B (IA & Backend)** :
+  - **Détection d'anomalies (`oraclebench/anomaly_detection.py`)** : Isolation Forest non supervisée sans ground truth, calcul d'anomalies par features statistiques.
+  - **Moteur de réputation (`oraclebench/reputation.py`)** : Réputation dynamique bornée $[0, 1]$, pénalités et récupération progressive.
+  - **Score de confiance (`oraclebench/confidence.py`)** : Moyenne géométrique pondérée (consensus, réputation, dispersion).
+  - **Agrégation IA (`oraclebench/ai_aggregation.py`)** : Moyenne pondérée sur les nœuds sains filtrés.
+  - **Backend Flask (`backend/api.py`, `backend/storage.py`)** : API REST, stockage local Parquet et PostgreSQL, intégration du pont.
+- **Personne C (Blockchain, Dashboard & Déploiement)** :
+  - **Smart Contract Solidity (`smart-contract/contracts/OracleBench.sol`)** : Stockage immuable, seuil de confiance $\ge 0.70$, contrôle d'accès optimisé en gas.
   - **Pont Blockchain (`smart-contract/bridge/`)** : API Express + ethers.js v6 reliant le backend Flask au réseau blockchain.
   - **Dashboard Web (`dashboard/`)** : Application React 18 (Vite + Recharts) proposant 5 vues analytiques interactives et un mode mock complet autonome.
   - **Conteneurisation (`docker-compose.yml`)** : Déploiement et orchestration reproductible en conteneurs Docker.
@@ -83,6 +88,7 @@ L'EVM (Ethereum Virtual Machine) ne traitant que des entiers, les données flott
 
 ## 4. Prérequis
 
+- **Python** : 3.10+ (recommandé 3.11 ou 3.12)
 - **Node.js** : version 18 LTS, 20 LTS ou 24
 - **npm** : version 9+ ou 10+
 - **Docker & Docker Compose** (recommandé pour une exécution en un clic)
@@ -92,7 +98,7 @@ L'EVM (Ethereum Virtual Machine) ne traitant que des entiers, les données flott
 
 ## 5. Démarrage Rapide avec Docker
 
-La commande unique suivante initialise la blockchain locale, compile et déploie le smart contract, lance le pont blockchain et expose le dashboard web :
+La commande unique suivante initialise la blockchain locale, compile et déploie le smart contract, lance le pont blockchain, le backend Flask et le dashboard web :
 
 ```bash
 docker compose up --build
@@ -100,11 +106,10 @@ docker compose up --build
 
 ### Services démarrés :
 - **Dashboard Web** : [http://localhost:3000](http://localhost:3000)
-- **Pont Blockchain (Bridge API)** : [http://localhost:3001](http://localhost:3001) (`/health`, `/stats`)
+- **API Backend Flask (Personne B)** : [http://localhost:5000](http://localhost:5000) (`/health`, `/rounds`, `/round/<id>`, `/reputation`, `/experiments/summary`)
+- **Pont Blockchain (Bridge API - Personne C)** : [http://localhost:3001](http://localhost:3001) (`/health`, `/stats`)
 - **Nœud Hardhat (RPC JSON-EVM)** : `http://localhost:8545` (Chain ID : 31337)
 - **Déployeur de contrat** : Initialise le contrat sur le nœud puis s'arrête proprement.
-
-*Note : Le service `backend` de la Personne B (Flask) est documenté dans `docker-compose.yml` et sera activé lors de l'intégration finale.*
 
 ---
 
@@ -123,21 +128,31 @@ npx hardhat node
 # Dans un second terminal : déployer le contrat sur localhost
 npx hardhat run scripts/deploy.js --network localhost
 ```
-*Le fichier `smart-contract/deployments/localhost.json` sera généré automatiquement avec l'adresse du contrat et son ABI.*
 
 ### Étape 2 : Pont Blockchain Express
 ```bash
 cd smart-contract/bridge
 npm install
 
-# Copier les variables d'environnement (optionnel, valeurs par défaut préconfigurées)
-cp .env.example .env
-
 # Démarrer le serveur du pont sur le port 3001
 npm start
 ```
 
-### Étape 3 : Dashboard React (Vite)
+### Étape 3 : Backend Flask (Personne B)
+```bash
+# Dans la racine du projet :
+pip install -r requirements.txt
+
+# Démarrer l'API Flask reliée au pont blockchain de la Personne C
+# Sous Windows PowerShell :
+$env:BRIDGE_URL = "http://localhost:3001"
+python -m backend.api
+
+# Sous Linux / macOS :
+BRIDGE_URL=http://localhost:3001 python -m backend.api
+```
+
+### Étape 4 : Dashboard React (Vite)
 ```bash
 cd dashboard
 npm install
@@ -149,45 +164,45 @@ Accéder à l'application sur [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 7. Commandes de Test et de Métriques (Partie C)
+## 7. Commandes de Test et de Validation
 
-### A. Tests Unitaires du Smart Contract (Hardhat / Chai / Ethers)
-Exécute les 10 tests de conformité (contrôle d'accès, seuil de confiance, rejet sous le seuil avec custom error `ConfidenceTooLow`, cas limite égal au seuil, unicité du round `RoundAlreadyRecorded`, émission d'événement `ValueUpdated`, lecture `getRound`) :
+### A. Tests Unitaires du Smart Contract (Partie C)
 ```bash
 cd smart-contract
 npm test
 ```
 
-### B. Mesure Réelle du Gas et de la Latence de Confirmation
-Enregistre 50 rounds consécutifs sur la blockchain, calcule les moyennes, minimums et maximums, et exporte les résultats dans `smart-contract/results/gas_measurements.csv` :
+### B. Mesure Réelle du Gas et de la Latence (Partie C)
 ```bash
 cd smart-contract
 npm run measure:gas
 ```
-*Résultats types mesurés : Gas moyen $\approx 145\,392$, Latence moyenne $\approx 2.6\text{ ms}$.*
 
-### C. Tests d'Intégration du Pont Blockchain
-Lance automatiquement un nœud de test, déploie le contrat et vérifie les endpoints (`GET /health`, `POST /record` valide, `POST /record` rejeté avec HTTP 422, `GET /round/:id` on-chain et `GET /stats`) :
+### C. Tests d'Intégration du Pont Blockchain (Partie C)
 ```bash
 cd smart-contract/bridge
 npm test
 ```
 
-### D. Build de Production du Dashboard
-Valide la compilation statique et la minification Vite :
+### D. Tests Unitaires de l'IA et du Backend (Partie B)
+Exécute la suite complète de 160+ tests unitaires (IA, Isolation Forest, réputation, confiance, stockage Parquet/SQL, client de pont, API Flask) :
 ```bash
-cd dashboard
-npm run build
+pytest
+```
+
+### E. Simulation & Démo de Bout en Bout
+Injecte une série de rounds dans l'API Flask, calcule l'IA, met à jour la réputation et scelle sur la blockchain :
+```bash
+python -m data.demo_api_client
 ```
 
 ---
 
 ## 8. Configuration & Bascule Mocks / API Réelle
 
-Le dashboard web est conçu pour fonctionner de manière autonome sans dépendre de l'avancement des parties A et B grâce à son jeu de données de test (`dashboard/mocks/`).
+Le dashboard web peut fonctionner soit en mode autonome (fixtures `dashboard/mocks/`), soit connecté à l'API Flask réelle de la Personne B :
 
-La bascule s'effectue via les variables d'environnement du dashboard (`dashboard/.env` ou dans `docker-compose.yml`) :
-
+Dans `dashboard/.env` ou `docker-compose.yml` :
 ```env
 # URL de l'API Flask (Personne B)
 VITE_API_URL=http://localhost:5000
@@ -196,44 +211,26 @@ VITE_API_URL=http://localhost:5000
 VITE_BRIDGE_URL=http://localhost:3001
 
 # Bascule d'environnement :
-# - true : utilise les fixtures locales de 50 rounds (autonome)
-# - false : appelle directement le backend Flask et le pont en production
-VITE_USE_MOCKS=true
+# - true : utilise les fixtures locales de rounds
+# - false : appelle directement le backend Flask et le pont en direct
+VITE_USE_MOCKS=false
 ```
 
 ---
 
 ## 9. Les 5 Vues du Dashboard
 
-1. **Vue Round** :
-   - Sélecteur de round dynamique (#1 à #50).
-   - Vérité terrain (affichée uniquement en mode expérimental).
-   - Valeur finale retenue, jauge de score de confiance avec statut dynamique (Valide $\ge 70\%$ / Rejeté $< 70\%$).
-   - Consensus des nœuds (nombre de nœuds sains vs en alerte) et empreinte cryptographique `proof_hash`.
-2. **Vue Oracles** :
-   - Graphique de déviation comparant les rapports de chaque nœud oracle à la valeur finale IA.
-   - Tableau complet par oracle : valeur rapportée, score d'anomalie (Isolation Forest), réputation historique, écart à la finale, et statut (`NORMAL` vert / `ALERT` rouge).
-3. **Vue Comparaison** :
-   - Mise en compétition des 5 méthodes : Moyenne simple, Médiane, Moyenne tronquée, Moyenne pondérée, Pipeline IA.
-   - Bar chart comparatif avec ligne de vérité terrain.
-   - Identification automatique de la méthode la plus performante et tableau d'erreurs absolues.
-4. **Vue Blockchain** :
-   - Statut on-chain de la transaction (`CONFIRMED`, `REJECTED`, `VERIFIED`).
-   - Outil interactif d'interrogation en direct du Smart Contract via le pont (`GET /round/:id`).
-   - Comparaison champ par champ de la valeur calculée par l'IA et de la valeur immuable stockée on-chain.
-   - État de santé du pont (`GET /health`) et métriques de gas.
-5. **Vue Expériences** :
-   - **Courbes d'erreur MAE** vs % d'oracles corrompus (0% à 50%) démontrant la robustesse du pipeline IA.
-   - **Métriques de détection** : Précision (96%), Rappel (93%), F1-Score (94.5%), Faux Positifs (2.5%).
-   - **Latence de calcul** par méthode (inférence IA sous 15 ms).
-   - **Courbe de gas on-chain** par round basée sur les mesures réelles.
+1. **Vue Round** : Sélection dynamique de round, KPIs de valeur finale, jauge de confiance, consensus des oracles sains/alertés, et preuve cryptographique `proof_hash`.
+2. **Vue Oracles** : Graphique de déviation par rapport au consensus IA, score d'anomalie Isolation Forest, réputation et statut (`NORMAL` / `ALERT`).
+3. **Vue Comparaison** : Benchmarking des 5 méthodes (Moyenne, Médiane, Tronquée, Pondérée, Pipeline IA) vs Vérité terrain.
+4. **Vue Blockchain** : Statut on-chain de la transaction (`CONFIRMED`, `REJECTED`), inspection du Smart Contract via le pont (`GET /round/:id`), métriques de gas.
+5. **Vue Expériences** : Courbes MAE vs % d'attaquants, métriques de classification (Précision, Rappel, F1-Score), latence d'inférence.
 
 ---
 
 ## 10. Contrats d'Interface Partagés (`contracts/`)
 
-Pour garantir l'interopérabilité entre les équipes A, B et C, les propositions initiales d'interfaces sont documentées dans le dossier `contracts/` :
-- `contracts/observation.schema.json` : Schéma des observations brutes ou synthétiques par oracle.
-- `contracts/round_result.schema.json` : Schéma de résultat de round agrégé transmis au pont et au dashboard.
-- `contracts/bridge.md` : Spécification détaillée des endpoints du pont, des codes HTTP (notamment 422 en cas de confiance sous le seuil) et des règles de mise à l'échelle.
+- `contracts/observation.schema.json` : Format normalisé des observations par oracle.
+- `contracts/round_result.schema.json` : Format du résultat complet de round après IA et agrégation.
+- `contracts/bridge.md` : Spécification des endpoints du pont (`/record`, `/round/:id`, `/health`, `/stats`).
 - `contracts/api.openapi.yaml` : Spécification OpenAPI 3.0 des routes Flask requises par le dashboard (`/rounds`, `/rounds/{id}`, `/experiments/summary`).
