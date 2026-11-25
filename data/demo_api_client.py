@@ -1,10 +1,12 @@
 ﻿"""Envoie les rounds du mock à une API lancée (python -m backend.api) et mesure l'erreur.
-Usage :  python -m data.demo_api_client [http://127.0.0.1:5000]"""
+Usage :  python -m data.demo_api_client [http://127.0.0.1:5000]
+Peut être relancé : il reprend après le dernier round déjà enregistré par le serveur."""
 import sys
 
-import numpy as np
 import pandas as pd
 import requests
+
+WARMUP = 15      # les premiers rounds servent de démarrage à froid : exclus de la mesure d'erreur
 
 base = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:5000"
 df = pd.read_csv("data/mock_rounds.csv")
@@ -17,14 +19,21 @@ for rid, g in df[df.round_id > start].groupby("round_id"):
     r = requests.post(f"{base}/round", json=body, timeout=10)
     r.raise_for_status()
     res = r.json()
-    rows.append({"round": rid, "truth": body["ground_truth"], "ai": res["final_value"],
+    rows.append({"round": int(rid), "truth": body["ground_truth"], "ai": res["final_value"],
                  "conf": res["confidence"], "chain": res["blockchain"]["status"]})
 
-r = pd.DataFrame(rows).query("round > 15")
-err = (r.ai - r.truth).abs()
-print(f"{len(rows)} rounds envoyés | MAE IA = {err.mean():.3f} | erreur max = {err.max():.3f}")
-print("statuts blockchain :", r.chain.value_counts().to_dict())
-print("confiance min/médiane/max :", r.conf.min().round(2), r.conf.median().round(2), r.conf.max().round(2))
+print(f"{len(rows)} rounds envoyés (reprise après le round {start})")
+scored = pd.DataFrame(rows, columns=["round", "truth", "ai", "conf", "chain"])
+scored = scored[scored["round"] > WARMUP].dropna(subset=["ai"])
+if scored.empty:
+    print(f"Aucun round à évaluer (il faut des rounds > {WARMUP}). "
+          f"Pour repartir de zéro : arrêter le serveur puis définir $env:RUN_ID avec un nouveau nom.")
+else:
+    err = (scored.ai - scored.truth).abs()
+    print(f"Évaluation sur {len(scored)} rounds (round > {WARMUP}) | MAE IA = {err.mean():.3f} | erreur max = {err.max():.3f}")
+    print("statuts blockchain :", scored.chain.value_counts().to_dict())
+    print("confiance min/médiane/max :", round(scored.conf.min(), 2), round(scored.conf.median(), 2), round(scored.conf.max(), 2))
+
 latest = requests.get(f"{base}/rounds?limit=2", timeout=5).json()
-print("derniers rounds :", [(x["round_id"], round(x["final_value"], 2)) for x in latest["rounds"]])
+print("derniers rounds :", [(x["round_id"], None if x["final_value"] is None else round(x["final_value"], 2)) for x in latest["rounds"]])
 print("réputations :", {k: round(v, 2) for k, v in requests.get(f"{base}/reputation", timeout=5).json()["reputation"].items()})
