@@ -26,7 +26,7 @@ services:
     container_name: oraclebench-deployer
     depends_on:
       hardhat-node:
-        condition: service_started
+        condition: service_healthy
     command: >
       sh -c "echo 'Attente de disponibilite du noeud Hardhat...' &&
              node -e \"const http=require('http');function ping(){http.get('http://hardhat-node:8545',r=>process.exit(0)).on('error',()=>setTimeout(ping,1000))}ping()\" &&

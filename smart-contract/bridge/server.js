@@ -20,6 +20,7 @@ let provider;
 let wallet;
 let oracleBenchContract;
 let contractAddress;
+let lastDeploymentMtimeMs = null;
 
 // Helper pour trouver les fichiers de déploiement (gère Docker /app et local ..)
 function findDeploymentFile(fileName) {
@@ -32,6 +33,10 @@ function findDeploymentFile(fileName) {
     if (fs.existsSync(p)) return p;
   }
   return null;
+}
+
+function getActiveDeploymentFile() {
+  return findDeploymentFile("localhost.json") || findDeploymentFile("hardhat.json");
 }
 
 function findArtifactPath() {
@@ -48,6 +53,8 @@ function findArtifactPath() {
 
 // Fonction de chargement dynamique du contrat et de son ABI
 function initContract() {
+  const previousAddress = contractAddress;
+
   provider = new ethers.JsonRpcProvider(RPC_URL, undefined, {
     staticNetwork: ethers.Network.from({ name: "localhost", chainId: 31337 })
   });
@@ -59,17 +66,12 @@ function initContract() {
   if (process.env.CONTRACT_ADDRESS && process.env.CONTRACT_ADDRESS.trim() !== "") {
     contractAddress = process.env.CONTRACT_ADDRESS.trim();
   } else {
-    const localhostPath = findDeploymentFile("localhost.json");
-    const hardhatPath = findDeploymentFile("hardhat.json");
-    if (localhostPath) {
-      const data = JSON.parse(fs.readFileSync(localhostPath, "utf8"));
+    const activePath = getActiveDeploymentFile();
+    if (activePath) {
+      const stat = fs.statSync(activePath);
+      const data = JSON.parse(fs.readFileSync(activePath, "utf8"));
       contractAddress = data.address;
-      if (data.abi && Array.isArray(data.abi) && data.abi.length > 0) {
-        loadedAbi = data.abi;
-      }
-    } else if (hardhatPath) {
-      const data = JSON.parse(fs.readFileSync(hardhatPath, "utf8"));
-      contractAddress = data.address;
+      lastDeploymentMtimeMs = stat.mtimeMs;
       if (data.abi && Array.isArray(data.abi) && data.abi.length > 0) {
         loadedAbi = data.abi;
       }
@@ -99,10 +101,40 @@ function initContract() {
   }
 
   if (contractAddress) {
+    if (previousAddress && previousAddress !== contractAddress) {
+      statsHistory.length = 0;
+    }
     oracleBenchContract = new ethers.Contract(contractAddress, abi, wallet);
     console.log(`[Bridge] Connecté au contrat OracleBench à l'adresse : ${contractAddress}`);
   } else {
     console.warn("[Bridge] AVERTISSEMENT : Aucune adresse de contrat trouvée. Les requêtes on-chain échoueront tant qu'un contrat n'est pas configuré.");
+  }
+}
+
+// Vérifie si un nouveau déploiement a été écrit sur le disque et recharge le contrat si besoin
+function ensureContractCurrent() {
+  if (process.env.CONTRACT_ADDRESS && process.env.CONTRACT_ADDRESS.trim() !== "") {
+    if (!oracleBenchContract) {
+      initContract();
+    }
+    return;
+  }
+
+  const activePath = getActiveDeploymentFile();
+  if (!activePath) {
+    if (!oracleBenchContract) {
+      initContract();
+    }
+    return;
+  }
+
+  try {
+    const stat = fs.statSync(activePath);
+    if (!oracleBenchContract || stat.mtimeMs !== lastDeploymentMtimeMs) {
+      initContract();
+    }
+  } catch (err) {
+    console.warn("[Bridge] Impossible de vérifier le fichier de déploiement :", err.message);
   }
 }
 
@@ -123,23 +155,27 @@ try {
  */
 app.get("/health", async (req, res) => {
   try {
-    if (!contractAddress) {
-      initContract();
-    }
+    ensureContractCurrent();
     let blockNumber = null;
     let networkName = "disconnected";
+    let contractDeployed = false;
     if (provider) {
       try {
         blockNumber = await provider.getBlockNumber();
         const network = await provider.getNetwork();
         networkName = `${network.name} (${network.chainId})`;
+        if (contractAddress) {
+          const code = await provider.getCode(contractAddress);
+          contractDeployed = Boolean(code && code !== "0x");
+        }
       } catch (e) {
         // RPC pas encore disponible
       }
     }
     return res.json({
-      status: "ok",
+      status: contractAddress && blockNumber !== null && !contractDeployed ? "contract_not_deployed" : "ok",
       contract_address: contractAddress || null,
+      contract_deployed: contractDeployed,
       network: networkName,
       block_number: blockNumber,
     });
@@ -194,13 +230,11 @@ app.post("/record", async (req, res) => {
     });
   }
 
+  ensureContractCurrent();
   if (!oracleBenchContract) {
-    initContract();
-    if (!oracleBenchContract) {
-      return res.status(503).json({
-        error: "Smart contract non configuré ou introuvable sur le RPC.",
-      });
-    }
+    return res.status(503).json({
+      error: "Smart contract non configuré ou introuvable sur le RPC.",
+    });
   }
 
   // 2. Application de la convention de mise à l'échelle (fixed-point)
@@ -299,11 +333,9 @@ app.get("/round/:id", async (req, res) => {
     return res.status(400).json({ error: "Identifiant de round invalide." });
   }
 
+  ensureContractCurrent();
   if (!oracleBenchContract) {
-    initContract();
-    if (!oracleBenchContract) {
-      return res.status(503).json({ error: "Smart contract non initialisé." });
-    }
+    return res.status(503).json({ error: "Smart contract non initialisé." });
   }
 
   try {
