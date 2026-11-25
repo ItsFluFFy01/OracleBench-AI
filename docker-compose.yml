@@ -1,0 +1,100 @@
+services:
+  # 1. Nœud local Hardhat (Blockchain EVM locale)
+  hardhat-node:
+    image: oraclebench-hardhat:latest
+    build:
+      context: ./smart-contract
+      dockerfile: Dockerfile
+    container_name: oraclebench-hardhat
+    ports:
+      - "8545:8545"
+    command: ["npx", "hardhat", "node", "--hostname", "0.0.0.0"]
+    networks:
+      - oraclebench-network
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 8545 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Déployeur automatique du contrat OracleBench sur le nœud local (réutilise l'image hardhat-node)
+  contract-deployer:
+    image: oraclebench-hardhat:latest
+    container_name: oraclebench-deployer
+    depends_on:
+      hardhat-node:
+        condition: service_started
+    command: >
+      sh -c "echo 'Attente de disponibilite du noeud Hardhat...' &&
+             node -e \"const http=require('http');function ping(){http.get('http://hardhat-node:8545',r=>process.exit(0)).on('error',()=>setTimeout(ping,1000))}ping()\" &&
+             echo 'Noeud Hardhat operationnel, deploiement en cours...' &&
+             npx hardhat run scripts/deploy.js --network localhost &&
+             echo 'Contrat OracleBench deploye avec succes.'"
+    environment:
+      - HARDHAT_NETWORK=localhost
+      - HARDHAT_NODE_URL=http://hardhat-node:8545
+    volumes:
+      - shared-deployments:/app/deployments
+    networks:
+      - oraclebench-network
+
+  # 3. Pont HTTP Express <-> Ethers.js v6
+  bridge:
+    build:
+      context: ./smart-contract/bridge
+      dockerfile: Dockerfile
+    container_name: oraclebench-bridge
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - RPC_URL=http://hardhat-node:8545
+      - PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+    volumes:
+      - shared-deployments:/app/deployments:ro
+    depends_on:
+      contract-deployer:
+        condition: service_completed_successfully
+    networks:
+      - oraclebench-network
+
+  # 4. Dashboard Web React (Vite + Nginx)
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: oraclebench-dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+      - VITE_BRIDGE_URL=http://localhost:3001
+      - VITE_USE_MOCKS=true
+    depends_on:
+      - bridge
+    networks:
+      - oraclebench-network
+
+  # 5. [NOTE INTÉGRATION] Backend Flask (Personne B)
+  # Ce service sera activé lors de l'intégration avec le travail de la Personne B.
+  # Le Dockerfile associé se trouvera dans backend/ géré par B.
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: oraclebench-backend
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - BRIDGE_URL=http://bridge:3001
+  #   depends_on:
+  #     - bridge
+  #   networks:
+  #     - oraclebench-network
+
+networks:
+  oraclebench-network:
+    driver: bridge
+
+volumes:
+  shared-deployments:

@@ -1,0 +1,258 @@
+openapi: 3.0.3
+info:
+  title: OracleBench Backend API - PROPOSITION v0, à valider par A, B et C
+  description: >
+    Proposition des endpoints exposés par le backend Flask (Personne B)
+    consommés par le Dashboard web React (Personne C).
+  version: 0.1.0
+
+paths:
+  /rounds:
+    get:
+      summary: Liste paginée ou ordonnée des résultats de rounds
+      description: Renvoie la liste chronologique des rounds calculés avec leurs détails d'agrégation.
+      parameters:
+        - name: limit
+          in: query
+          description: Nombre maximum de rounds à retourner
+          required: false
+          schema:
+            type: integer
+            default: 50
+        - name: offset
+          in: query
+          description: Décalage de pagination
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Liste des rounds
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoundResult'
+
+  /rounds/{id}:
+    get:
+      summary: Détail complet d'un round
+      description: Renvoie toutes les données détaillées d'un round (observations oracles, scores, méthodes, vérité terrain si dispo).
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identifiant du round
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Détail du round trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundResult'
+        '404':
+          description: Round non trouvé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Round not found"
+
+  /experiments/summary:
+    get:
+      summary: Synthèse globale des métriques de benchmark
+      description: Fournit les métriques comparatives agrégées issues de la campagne d'expérimentation (Personne A & B).
+      responses:
+        '200':
+          description: Métriques de performance par méthode d'agrégation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentsSummary'
+
+components:
+  schemas:
+    OracleStatus:
+      type: string
+      enum: [NORMAL, ALERT]
+
+    OracleProfile:
+      type: string
+      enum: [NORMAL, NOISY, BIASED, SPIKE, STALE, COLLUSION]
+
+    PerOracleResult:
+      type: object
+      required:
+        - oracle_id
+        - value
+        - anomaly_score
+        - reputation
+        - status
+      properties:
+        oracle_id:
+          type: string
+          example: "oracle_1"
+        value:
+          type: number
+          example: 101.45
+        anomaly_score:
+          type: number
+          example: 0.12
+        reputation:
+          type: number
+          example: 0.95
+        status:
+          $ref: '#/components/schemas/OracleStatus'
+
+    AggregationMethods:
+      type: object
+      required:
+        - mean
+        - median
+        - trimmed
+        - weighted
+        - ai
+      properties:
+        mean:
+          type: number
+          example: 103.8
+        median:
+          type: number
+          example: 101.9
+        trimmed:
+          type: number
+          example: 102.1
+        weighted:
+          type: number
+          example: 101.7
+        ai:
+          type: number
+          example: 101.5
+
+    RoundResult:
+      type: object
+      required:
+        - round_id
+        - final_value
+        - confidence
+        - proof_hash
+        - per_oracle
+        - methods
+      properties:
+        round_id:
+          type: integer
+          example: 1
+        final_value:
+          type: number
+          example: 101.5
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+          example: 0.89
+        proof_hash:
+          type: string
+          pattern: "^0x[0-9a-fA-F]{64}$"
+          example: "0x4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+        per_oracle:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerOracleResult'
+        methods:
+          $ref: '#/components/schemas/AggregationMethods'
+        ground_truth:
+          type: number
+          nullable: true
+          example: 101.2
+
+    MethodMetrics:
+      type: object
+      required:
+        - mae
+        - rmse
+        - latency_ms
+      properties:
+        mae:
+          type: number
+          example: 0.42
+        rmse:
+          type: number
+          example: 0.65
+        latency_ms:
+          type: number
+          example: 12.4
+
+    DetectionMetrics:
+      type: object
+      required:
+        - precision
+        - recall
+        - f1
+        - fpr
+      properties:
+        precision:
+          type: number
+          example: 0.94
+        recall:
+          type: number
+          example: 0.91
+        f1:
+          type: number
+          example: 0.925
+        fpr:
+          type: number
+          example: 0.03
+
+    MaliciousBreakdownPoint:
+      type: object
+      required:
+        - malicious_pct
+        - mean_mae
+        - median_mae
+        - trimmed_mae
+        - weighted_mae
+        - ai_mae
+      properties:
+        malicious_pct:
+          type: number
+          example: 20
+        mean_mae:
+          type: number
+          example: 3.5
+        median_mae:
+          type: number
+          example: 0.9
+        trimmed_mae:
+          type: number
+          example: 0.8
+        weighted_mae:
+          type: number
+          example: 0.6
+        ai_mae:
+          type: number
+          example: 0.45
+
+    ExperimentsSummary:
+      type: object
+      required:
+        - methods
+        - detection
+        - malicious_breakdown
+      properties:
+        methods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MethodMetrics'
+        detection:
+          $ref: '#/components/schemas/DetectionMetrics'
+        malicious_breakdown:
+          type: array
+          items:
+            $ref: '#/components/schemas/MaliciousBreakdownPoint'

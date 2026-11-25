@@ -1,0 +1,85 @@
+{
+  "methods": {
+    "mean": {
+      "mae": 3.85,
+      "rmse": 5.62,
+      "latency_ms": 1.2
+    },
+    "median": {
+      "mae": 1.45,
+      "rmse": 2.1,
+      "latency_ms": 1.8
+    },
+    "trimmed": {
+      "mae": 1.2,
+      "rmse": 1.75,
+      "latency_ms": 2.1
+    },
+    "weighted": {
+      "mae": 0.98,
+      "rmse": 1.42,
+      "latency_ms": 2.5
+    },
+    "ai": {
+      "mae": 0.38,
+      "rmse": 0.55,
+      "latency_ms": 14.8
+    }
+  },
+  "detection": {
+    "precision": 0.96,
+    "recall": 0.93,
+    "f1": 0.945,
+    "fpr": 0.025
+  },
+  "malicious_breakdown": [
+    {
+      "malicious_pct": 0,
+      "mean_mae": 0.35,
+      "median_mae": 0.4,
+      "trimmed_mae": 0.38,
+      "weighted_mae": 0.34,
+      "ai_mae": 0.32
+    },
+    {
+      "malicious_pct": 10,
+      "mean_mae": 1.85,
+      "median_mae": 0.65,
+      "trimmed_mae": 0.55,
+      "weighted_mae": 0.52,
+      "ai_mae": 0.34
+    },
+    {
+      "malicious_pct": 20,
+      "mean_mae": 3.4,
+      "median_mae": 0.95,
+      "trimmed_mae": 0.85,
+      "weighted_mae": 0.72,
+      "ai_mae": 0.36
+    },
+    {
+      "malicious_pct": 30,
+      "mean_mae": 5.2,
+      "median_mae": 1.45,
+      "trimmed_mae": 1.3,
+      "weighted_mae": 1.15,
+      "ai_mae": 0.39
+    },
+    {
+      "malicious_pct": 40,
+      "mean_mae": 7.8,
+      "median_mae": 2.3,
+      "trimmed_mae": 2.1,
+      "weighted_mae": 1.85,
+      "ai_mae": 0.45
+    },
+    {
+      "malicious_pct": 50,
+      "mean_mae": 11.5,
+      "median_mae": 4.8,
+      "trimmed_mae": 4.5,
+      "weighted_mae": 3.9,
+      "ai_mae": 0.72
+    }
+  ]
+}
