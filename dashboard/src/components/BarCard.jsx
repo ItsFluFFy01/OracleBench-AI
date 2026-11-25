@@ -24,7 +24,15 @@ function ChartTooltip({ active, payload, label }) {
  * data: Array<{ name, value, ... }>
  * dataKey: clé numérique à tracer
  */
-export function BarCard({ title, desc, data = [], dataKey = "value", name, height = 260 }) {
+export function BarCard({
+  title,
+  desc,
+  data = [],
+  dataKey = "value",
+  name,
+  height = 260,
+  domain = [0, "auto"],
+}) {
   const gradId = "barCardGrad";
   return (
     <div className="chart-card">
@@ -45,7 +53,7 @@ export function BarCard({ title, desc, data = [], dataKey = "value", name, heigh
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
             <XAxis dataKey="name" stroke="var(--chart-axis)" tick={{ fontSize: 11 }} />
-            <YAxis stroke="var(--chart-axis)" tick={{ fontSize: 11 }} domain={[0, "auto"]} />
+            <YAxis stroke="var(--chart-axis)" tick={{ fontSize: 11 }} domain={domain} />
             <Tooltip content={<ChartTooltip />} />
             <Bar
               dataKey={dataKey}

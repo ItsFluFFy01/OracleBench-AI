@@ -17,9 +17,12 @@ services:
       timeout: 5s
       retries: 5
 
-  # 2. Déployeur automatique du contrat OracleBench sur le nœud local (réutilise l'image hardhat-node)
+  # 2. Déployeur automatique du contrat OracleBench sur le nœud local
   contract-deployer:
     image: oraclebench-hardhat:latest
+    build:
+      context: ./smart-contract
+      dockerfile: Dockerfile
     container_name: oraclebench-deployer
     depends_on:
       hardhat-node:

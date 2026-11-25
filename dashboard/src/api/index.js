@@ -12,10 +12,15 @@ export async function getRounds() {
     return Promise.resolve(roundsMock);
   }
   try {
-    const res = await fetch(`${config.apiUrl}/rounds`);
+    const res = await fetch(`${config.apiUrl}/rounds?limit=500&order=asc`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    return Array.isArray(data) ? data : (data.rounds || []);
+    const list = Array.isArray(data) ? data : (data.rounds || []);
+    if (list.length === 0) {
+      console.info("[API] Aucun round dans le backend Flask, affichage des données de secours");
+      return roundsMock;
+    }
+    return list;
   } catch (error) {
     console.warn("[API] Échec d'accès au backend Flask, bascule sur les mocks :", error);
     return roundsMock;

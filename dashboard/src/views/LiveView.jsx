@@ -72,19 +72,32 @@ export function LiveView() {
         }
       } else {
         // Mode Réel : Polling de l'API Flask de B
+        // L'API retourne { rounds: [...], total: N } ou directement un tableau
         try {
-          const res = await fetch(`${config.apiUrl}/rounds`);
+          const res = await fetch(`${config.apiUrl}/rounds?limit=1&order=desc`);
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            const latest = data[data.length - 1];
+          const list = Array.isArray(data) ? data : (data.rounds || []);
+          if (list.length > 0) {
+            const latest = list[0]; // order=desc → le plus récent en premier
             if (latest.round_id !== lastFetchedIdRef.current) {
               lastFetchedIdRef.current = latest.round_id;
-              setCurrentRound(latest);
-              setHistory((prev) => {
-                const updated = [...prev, latest];
-                return updated.length > 50 ? updated.slice(updated.length - 50) : updated;
-              });
+              // Récupération des détails complets (per_oracle, methods, breakdown)
+              try {
+                const detailRes = await fetch(`${config.apiUrl}/rounds/${latest.round_id}`);
+                const full = detailRes.ok ? await detailRes.json() : latest;
+                setCurrentRound(full);
+                setHistory((prev) => {
+                  const updated = [...prev, full];
+                  return updated.length > 50 ? updated.slice(updated.length - 50) : updated;
+                });
+              } catch {
+                setCurrentRound(latest);
+                setHistory((prev) => {
+                  const updated = [...prev, latest];
+                  return updated.length > 50 ? updated.slice(updated.length - 50) : updated;
+                });
+              }
             }
           }
           setBackendError(null);

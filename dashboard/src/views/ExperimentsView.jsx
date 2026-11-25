@@ -49,13 +49,16 @@ export function ExperimentsView() {
   /* ── Données graphiques ── */
 
   // Courbe MAE vs % malveillants
-  const maeData = (summary.malicious_breakdown || []).map((row) => {
-    const point = { name: `${row.pct_malicious}%` };
-    for (const [k, v] of Object.entries(row.mae_by_method || {})) {
-      point[k] = +(v).toFixed(3);
-    }
-    return point;
-  });
+  // Structure réelle dans experiments_summary.json :
+  // { malicious_pct, mean_mae, median_mae, trimmed_mae, weighted_mae, ai_mae }
+  const maeData = (summary.malicious_breakdown || []).map((row) => ({
+    name:     `${row.malicious_pct}%`,
+    mean:     +(row.mean_mae     ?? 0).toFixed(3),
+    median:   +(row.median_mae   ?? 0).toFixed(3),
+    trimmed:  +(row.trimmed_mae  ?? 0).toFixed(3),
+    weighted: +(row.weighted_mae ?? 0).toFixed(3),
+    ai:       +(row.ai_mae       ?? 0).toFixed(3),
+  }));
 
   const maeLines = Object.keys(METHOD_COLORS).map((k) => ({
     key: k, label: METHOD_LABELS[k], color: METHOD_COLORS[k], dashed: k !== "ai",

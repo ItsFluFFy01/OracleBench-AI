@@ -199,6 +199,21 @@ def create_app(store=None, bridge=None, processor=None, config: dict | None = No
                 "proof_hash", "tx_hash", "gas_used", "chain_status"]
         rows = json.loads(df[cols].to_json(orient="records")) if len(df) else []
 
+        # Enrichir chaque round avec methods et breakdown si disponibles
+        for i, r in enumerate(rows):
+            if "methods_json" in df.columns and i < len(df):
+                try:
+                    m = df["methods_json"].iloc[i]
+                    r["methods"] = json.loads(m) if isinstance(m, str) else m
+                except Exception:
+                    pass
+            if "breakdown_json" in df.columns and i < len(df):
+                try:
+                    b = df["breakdown_json"].iloc[i]
+                    r["breakdown"] = json.loads(b) if isinstance(b, str) else b
+                except Exception:
+                    pass
+
         # Support direct format array (conformité OpenAPI et dashboard)
         if request.args.get("format") == "array" or request.headers.get("X-Format") == "array":
             if request.args.get("full") == "true":
@@ -212,10 +227,10 @@ def create_app(store=None, bridge=None, processor=None, config: dict | None = No
     def experiments_summary():
         candidate_paths = [
             os.getenv("EXPERIMENTS_SUMMARY_PATH"),
+            "data/experiments_summary.json",
             "experiments/results/experiments_summary.json",
             "dashboard/mocks/experiments_summary.json",
             "../dashboard/mocks/experiments_summary.json",
-            "data/experiments_summary.json",
         ]
         for p in candidate_paths:
             if p and os.path.isfile(p):
