@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { StepCard } from "./StepCard";
-import { ShieldCheck, AlertTriangle, Blocks, Hash, Fuel, Clock } from "lucide-react";
+import { ShieldCheck, AlertTriangle, Fuel, Clock } from "lucide-react";
 
 export function CalculationPanel({ round, isPlaying }) {
   const [revealedStep, setRevealedStep] = useState(1);
 
-  // Animation séquentielle d'environ 300 ms par étape
+  // Animation séquentielle d'environ 250 ms par étape
   useEffect(() => {
     if (!round) return;
 
-    // Déroulement séquentiel des étapes 1 à 6
     setRevealedStep(1);
     const timers = [];
     for (let s = 2; s <= 6; s++) {
       timers.push(
         setTimeout(() => {
           setRevealedStep((prev) => Math.max(prev, s));
-        }, (s - 1) * 300)
+        }, (s - 1) * 250)
       );
     }
 
@@ -26,7 +25,7 @@ export function CalculationPanel({ round, isPlaying }) {
   if (!round) {
     return (
       <div className="chart-card">
-        <p className="chart-desc">En attente du premier round...</p>
+        <p className="chart-desc">Chargement des rounds depuis le backend...</p>
       </div>
     );
   }
@@ -42,28 +41,39 @@ export function CalculationPanel({ round, isPlaying }) {
     confidence_formula = "",
     proof_hash = "—",
     blockchain = {},
+    breakdown = null,
+    _isReal = false,
   } = round;
 
   const isAccepted = confidence >= 0.7;
+  const bcStatus = blockchain?.status || (isAccepted ? "ACCEPTED" : "REJECTED");
+  const isBcOk = ["ACCEPTED", "CONFIRMED", "VERIFIED"].includes(bcStatus);
 
   return (
     <div className="calculation-panel">
       {/* ── Étape 1 : Observations reçues ── */}
       <StepCard
         stepNumber={1}
-        title="Observations reçues par les Nœuds Oracles"
-        subtitle={`Vérité terrain de référence : ${ground_truth ?? "Non fournie"}`}
+        title={`Observations reçues par les Nœuds Oracles — Round #${round_id}`}
+        subtitle={`Vérité terrain de référence : ${typeof ground_truth === "number" ? ground_truth.toFixed(3) : "Non fournie"}`}
         isActive={revealedStep === 1}
         isCompleted={revealedStep > 1}
       >
         <div className="oracle-pills-grid">
-          {per_oracle.map((o) => (
-            <div key={o.oracle_id} className={`oracle-pill pill-${(o.profile || "normal").toLowerCase()}`}>
-              <div className="oracle-pill-id">{o.oracle_id}</div>
-              <div className="oracle-pill-val">{typeof o.value === "number" ? o.value.toFixed(2) : o.value}</div>
-              <div className="oracle-pill-profile">{o.profile || "OBS"}</div>
-            </div>
-          ))}
+          {per_oracle.map((o) => {
+            const pillClass = o.profile
+              ? `pill-${o.profile.toLowerCase()}`
+              : o.status === "ALERT"
+                ? "pill-spike"
+                : "pill-normal";
+            return (
+              <div key={o.oracle_id} className={`oracle-pill ${pillClass}`}>
+                <div className="oracle-pill-id">{o.oracle_id}</div>
+                <div className="oracle-pill-val">{typeof o.value === "number" ? o.value.toFixed(2) : o.value}</div>
+                <div className="oracle-pill-profile">{o.profile || o.status || "OBS"}</div>
+              </div>
+            );
+          })}
         </div>
       </StepCard>
 
@@ -71,7 +81,7 @@ export function CalculationPanel({ round, isPlaying }) {
       {revealedStep >= 2 && (
         <StepCard
           stepNumber={2}
-          title="Détection d'anomalies (Score Robuste vs Seuil 0.65)"
+          title={_isReal ? "Détection d'anomalies (Isolation Forest — Backend B)" : "Détection d'anomalies (Score Robuste vs Seuil 0.65)"}
           subtitle="Isolation des observations aberrantes ou malveillantes"
           isActive={revealedStep === 2}
           isCompleted={revealedStep > 2}
@@ -89,7 +99,7 @@ export function CalculationPanel({ round, isPlaying }) {
                     </span>
                   </div>
                   <div className="detection-score">
-                    Score : <strong>{typeof o.anomaly_score === "number" ? o.anomaly_score.toFixed(3) : (o.anomaly_score || "non fourni")}</strong>
+                    Score : <strong>{typeof o.anomaly_score === "number" ? o.anomaly_score.toFixed(3) : (o.anomaly_score ?? "non fourni")}</strong>
                   </div>
                 </div>
               );
@@ -109,15 +119,22 @@ export function CalculationPanel({ round, isPlaying }) {
         >
           <div className="reputation-flow-grid">
             {per_oracle.map((o) => {
-              const delta = o.delta_reputation ?? (o.reputation && o.old_reputation ? +(o.reputation - o.old_reputation).toFixed(3) : 0);
+              const hasOld = typeof o.old_reputation === "number";
+              const hasCur = typeof o.reputation === "number";
+              const delta =
+                typeof o.delta_reputation === "number"
+                  ? o.delta_reputation
+                  : hasOld && hasCur
+                    ? +(o.reputation - o.old_reputation).toFixed(3)
+                    : 0;
               const deltaClass = delta > 0 ? "rep-up" : delta < 0 ? "rep-down" : "rep-eq";
               return (
                 <div key={o.oracle_id} className="reputation-cell">
                   <span className="mono">{o.oracle_id}</span>
                   <span className="rep-transition">
-                    {typeof o.old_reputation === "number" ? `${(o.old_reputation * 100).toFixed(0)}%` : "80%"}
+                    {hasOld ? `${(o.old_reputation * 100).toFixed(0)}%` : "—"}
                     {" → "}
-                    <strong>{typeof o.reputation === "number" ? `${(o.reputation * 100).toFixed(0)}%` : "—"}</strong>
+                    <strong>{hasCur ? `${(o.reputation * 100).toFixed(0)}%` : "—"}</strong>
                   </span>
                   <span className={`rep-delta ${deltaClass}`}>
                     {delta > 0 ? `+${delta}` : delta < 0 ? `${delta}` : "="}
@@ -134,7 +151,7 @@ export function CalculationPanel({ round, isPlaying }) {
         <StepCard
           stepNumber={4}
           title="Calculs d'Agrégation Multi-Stratégies"
-          subtitle="Formules explicites avec substitution des valeurs réelles"
+          subtitle="Comparaison des baselines statistiques et du consensus IA retenu"
           isActive={revealedStep === 4}
           isCompleted={revealedStep > 4}
         >
@@ -146,8 +163,15 @@ export function CalculationPanel({ round, isPlaying }) {
               { key: "weighted", label: "Moyenne Pondérée (Réputation)" },
               { key: "ai", label: "Pipeline IA (OracleBench Retenu)" },
             ].map(({ key, label }) => {
-              const formula = formulas[key] || `${label} = ${methods[key] ?? "non fourni"}`;
-              const err = errors[key];
+              const rawVal = methods[key];
+              const formattedVal = typeof rawVal === "number" ? rawVal.toFixed(4) : "non fourni";
+              const formula = formulas[key] || `${label} = ${formattedVal}`;
+              const err =
+                typeof errors[key] === "number"
+                  ? errors[key]
+                  : typeof ground_truth === "number" && typeof rawVal === "number"
+                    ? Math.abs(rawVal - ground_truth)
+                    : null;
               const isAI = key === "ai";
               return (
                 <div key={key} className={`formula-box ${isAI ? "formula-ai" : ""}`}>
@@ -172,7 +196,11 @@ export function CalculationPanel({ round, isPlaying }) {
         <StepCard
           stepNumber={5}
           title="Calcul du Score de Confiance"
-          subtitle="Accord des nœuds (40%) + Réputation moyenne (35%) + Rétention des sources (25%)"
+          subtitle={
+            breakdown
+              ? "Moyenne géométrique pondérée : Accord (30%) × Réputation (25%) × Couverture (20%) × Quorum (25%)"
+              : "Accord des nœuds (40%) + Réputation moyenne (35%) + Rétention des sources (25%)"
+          }
           isActive={revealedStep === 5}
           isCompleted={revealedStep > 5}
         >
@@ -202,8 +230,8 @@ export function CalculationPanel({ round, isPlaying }) {
           <div className="blockchain-step-grid">
             <div className="bc-field">
               <span className="bc-field-label">Statut On-Chain :</span>
-              <span className={`badge ${blockchain?.status === "ACCEPTED" ? "badge-normal" : "badge-alert"}`}>
-                {blockchain?.status || (isAccepted ? "ACCEPTED" : "REJECTED")}
+              <span className={`badge ${isBcOk ? "badge-normal" : "badge-alert"}`}>
+                {bcStatus}
               </span>
             </div>
 
@@ -213,18 +241,30 @@ export function CalculationPanel({ round, isPlaying }) {
             </div>
 
             <div className="bc-field">
-              <span className="bc-field-label"><Fuel size={13} style={{ display: "inline", marginRight: 4 }} /> Gas estimé :</span>
-              <span className="mono">{blockchain?.gas_used ? `${blockchain.gas_used.toLocaleString()} unités` : "0 (Rejeté)"}</span>
+              <span className="bc-field-label"><Fuel size={13} style={{ display: "inline", marginRight: 4 }} /> Gas estimé / mesuré :</span>
+              <span className="mono">
+                {blockchain?.gas_used
+                  ? `${blockchain.gas_used.toLocaleString()} unités`
+                  : isBcOk
+                    ? "—"
+                    : "0 (Rejeté)"}
+              </span>
             </div>
 
             <div className="bc-field">
-              <span className="bc-field-label"><Clock size={13} style={{ display: "inline", marginRight: 4 }} /> Latence :</span>
-              <span className="mono">{blockchain?.confirmation_ms ? `${blockchain.confirmation_ms} ms` : "—"}</span>
+              <span className="bc-field-label"><Clock size={13} style={{ display: "inline", marginRight: 4 }} /> {blockchain?.tx_hash ? "Transaction :" : "Latence :"}</span>
+              <span className="mono">
+                {blockchain?.tx_hash
+                  ? `${blockchain.tx_hash.slice(0, 18)}…`
+                  : blockchain?.confirmation_ms
+                    ? `${blockchain.confirmation_ms} ms`
+                    : "—"}
+              </span>
             </div>
           </div>
 
           <div className="blockchain-note">
-            {blockchain?.note || (blockchain?.is_real ? "Enregistré on-chain via le pont HTTP" : "Simulation navigateur")}
+            {blockchain?.note || (blockchain?.is_real ? "Données scellées par le backend Flask (Partie B)" : "Simulation navigateur")}
           </div>
         </StepCard>
       )}

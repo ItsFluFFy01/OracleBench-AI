@@ -19,7 +19,7 @@ function ChartTooltip({ active, payload, label }) {
         <div key={p.dataKey} className="chart-tooltip-row">
           <span className="chart-tooltip-dot" style={{ background: p.color }} />
           <span>
-            {p.name} : <strong>{typeof p.value === "number" ? p.value.toFixed(2) : p.value}</strong>
+            {p.name} : <strong>{typeof p.value === "number" ? p.value.toFixed(3) : p.value}</strong>
           </span>
         </div>
       ))}
@@ -27,18 +27,32 @@ function ChartTooltip({ active, payload, label }) {
   );
 }
 
+/** Retourne l'erreur absolue d'une méthode par rapport à la vérité terrain */
+function getRoundError(r, method) {
+  if (r.errors && typeof r.errors[method] === "number") {
+    return r.errors[method];
+  }
+  const val = method === "ai" ? (r.methods?.ai ?? r.final_value) : r.methods?.[method];
+  if (typeof r.ground_truth === "number" && typeof val === "number") {
+    return Math.abs(val - r.ground_truth);
+  }
+  return null;
+}
+
 export function LiveCharts({ history = [] }) {
   if (!history || history.length === 0) {
     return null;
   }
 
+  const showDots = history.length <= 3 ? { r: 3 } : false;
+
   // 1. Données du graphique de consensus temporel
   const trackingData = history.map((r) => ({
     name: `R${r.round_id}`,
-    truth: r.ground_truth,
-    ai: r.final_value,
-    mean: r.methods?.mean,
-    median: r.methods?.median,
+    truth: typeof r.ground_truth === "number" ? +r.ground_truth.toFixed(3) : undefined,
+    ai: typeof r.final_value === "number" ? +r.final_value.toFixed(3) : undefined,
+    mean: typeof r.methods?.mean === "number" ? +r.methods.mean.toFixed(3) : undefined,
+    median: typeof r.methods?.median === "number" ? +r.methods.median.toFixed(3) : undefined,
   }));
 
   // 2. Calcul de la MAE cumulée (running MAE) par méthode
@@ -47,28 +61,41 @@ export function LiveCharts({ history = [] }) {
   let sumErrAI = 0;
   let sumErrTrimmed = 0;
   let sumErrWeighted = 0;
+  let countWithGt = 0;
 
-  const maeData = history.map((r, idx) => {
-    const n = idx + 1;
-    sumErrMean += r.errors?.mean ?? 0;
-    sumErrMedian += r.errors?.median ?? 0;
-    sumErrTrimmed += r.errors?.trimmed ?? 0;
-    sumErrWeighted += r.errors?.weighted ?? 0;
-    sumErrAI += r.errors?.ai ?? 0;
+  const maeData = history.map((r) => {
+    const errMean = getRoundError(r, "mean");
+    const errMedian = getRoundError(r, "median");
+    const errTrimmed = getRoundError(r, "trimmed");
+    const errWeighted = getRoundError(r, "weighted");
+    const errAI = getRoundError(r, "ai");
 
+    if (errAI !== null) {
+      countWithGt += 1;
+      sumErrMean += errMean ?? errAI;
+      sumErrMedian += errMedian ?? errAI;
+      sumErrTrimmed += errTrimmed ?? errAI;
+      sumErrWeighted += errWeighted ?? errAI;
+      sumErrAI += errAI;
+    }
+
+    const denom = countWithGt || 1;
     return {
       name: `R${r.round_id}`,
-      mean: +(sumErrMean / n).toFixed(3),
-      median: +(sumErrMedian / n).toFixed(3),
-      trimmed: +(sumErrTrimmed / n).toFixed(3),
-      weighted: +(sumErrWeighted / n).toFixed(3),
-      ai: +(sumErrAI / n).toFixed(3),
+      mean: countWithGt ? +(sumErrMean / denom).toFixed(3) : 0,
+      median: countWithGt ? +(sumErrMedian / denom).toFixed(3) : 0,
+      trimmed: countWithGt ? +(sumErrTrimmed / denom).toFixed(3) : 0,
+      weighted: countWithGt ? +(sumErrWeighted / denom).toFixed(3) : 0,
+      ai: countWithGt ? +(sumErrAI / denom).toFixed(3) : 0,
     };
   });
 
   // 3. Évolution des réputations des oracles
-  const firstRound = history[0];
-  const oracleIds = (firstRound?.per_oracle || []).map((o) => o.oracle_id);
+  const oracleIdSet = new Set();
+  history.forEach((r) => {
+    (r.per_oracle || []).forEach((o) => oracleIdSet.add(o.oracle_id));
+  });
+  const oracleIds = Array.from(oracleIdSet);
 
   const reputationData = history.map((r) => {
     const point = { name: `R${r.round_id}` };
@@ -104,10 +131,10 @@ export function LiveCharts({ history = [] }) {
               <YAxis stroke="var(--chart-axis)" tick={{ fontSize: 11 }} domain={["auto", "auto"]} />
               <Tooltip content={<ChartTooltip />} />
               <Legend wrapperStyle={{ fontSize: 12, color: "var(--text-muted)" }} />
-              <Line type="monotone" dataKey="truth" name="Vérité Terrain" stroke="var(--line-truth)" strokeWidth={2.5} dot={false} />
-              <Line type="monotone" dataKey="ai" name="Pipeline IA" stroke="var(--line-ai)" strokeWidth={2.5} dot={false} strokeDasharray="4 3" />
-              <Line type="monotone" dataKey="mean" name="Moyenne" stroke="var(--line-mean)" strokeWidth={1.5} dot={false} />
-              <Line type="monotone" dataKey="median" name="Médiane" stroke="var(--line-median)" strokeWidth={1.5} dot={false} />
+              <Line type="monotone" dataKey="truth" name="Vérité Terrain" stroke="var(--line-truth)" strokeWidth={2.5} dot={showDots} />
+              <Line type="monotone" dataKey="ai" name="Pipeline IA" stroke="var(--line-ai)" strokeWidth={2.5} dot={showDots} strokeDasharray="4 3" />
+              <Line type="monotone" dataKey="mean" name="Moyenne" stroke="var(--line-mean)" strokeWidth={1.5} dot={showDots} />
+              <Line type="monotone" dataKey="median" name="Médiane" stroke="var(--line-median)" strokeWidth={1.5} dot={showDots} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -131,11 +158,11 @@ export function LiveCharts({ history = [] }) {
                 <YAxis stroke="var(--chart-axis)" tick={{ fontSize: 11 }} domain={[0, "auto"]} />
                 <Tooltip content={<ChartTooltip />} />
                 <Legend wrapperStyle={{ fontSize: 11, color: "var(--text-muted)" }} />
-                <Line type="monotone" dataKey="ai" name="Pipeline IA" stroke="var(--line-ai)" strokeWidth={2} dot={false} />
-                <Line type="monotone" dataKey="mean" name="Moyenne" stroke="var(--line-mean)" strokeWidth={1.5} dot={false} />
-                <Line type="monotone" dataKey="median" name="Médiane" stroke="var(--line-median)" strokeWidth={1.5} dot={false} />
-                <Line type="monotone" dataKey="trimmed" name="Tronquée" stroke="var(--line-trimmed)" strokeWidth={1.5} dot={false} />
-                <Line type="monotone" dataKey="weighted" name="Pondérée" stroke="var(--line-weighted)" strokeWidth={1.5} dot={false} />
+                <Line type="monotone" dataKey="ai" name="Pipeline IA" stroke="var(--line-ai)" strokeWidth={2} dot={showDots} />
+                <Line type="monotone" dataKey="mean" name="Moyenne" stroke="var(--line-mean)" strokeWidth={1.5} dot={showDots} />
+                <Line type="monotone" dataKey="median" name="Médiane" stroke="var(--line-median)" strokeWidth={1.5} dot={showDots} />
+                <Line type="monotone" dataKey="trimmed" name="Tronquée" stroke="var(--line-trimmed)" strokeWidth={1.5} dot={showDots} />
+                <Line type="monotone" dataKey="weighted" name="Pondérée" stroke="var(--line-weighted)" strokeWidth={1.5} dot={showDots} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -165,7 +192,7 @@ export function LiveCharts({ history = [] }) {
                     name={id}
                     stroke={oracleColors[index % oracleColors.length]}
                     strokeWidth={1.5}
-                    dot={false}
+                    dot={showDots}
                   />
                 ))}
               </LineChart>
