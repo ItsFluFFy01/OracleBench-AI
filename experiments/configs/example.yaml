@@ -1,0 +1,54 @@
+# Configuration de la campagne expérimentale OracleBench-AI (Scénario ETH/USD)
+
+# 1. Paramètres du générateur de vérité terrain
+rounds: 50
+base_value: 3420.50
+amplitude: 25.0
+period: 50.0
+trend: 0.2
+noise_std: 5.0
+
+# 2. Paramètres des nœuds oracles (profils de base)
+normal_noise_std: 3.0
+noisy_noise_std: 35.0
+bias_offset: 50.0
+profile_ratios:
+  normal: 0.8
+  noisy: 0.1
+  biased: 0.1
+
+# 3. Paramètres des attaques
+spike_offset: 600.0
+spike_prob: 0.3
+collusion_offset: 250.0
+
+# 4. Paramètres d'agrégation
+trim_ratio: 0.2
+
+# 5. Grille de campagne expérimentale (sections 13.1 à 13.4)
+seeds:
+  - 42
+  - 43
+  - 44
+
+n_oracles_list:
+  - 5
+  - 10
+  - 20
+
+pct_bad_list:
+  - 0.0
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  - 0.5
+
+attacks:
+  - none
+  - spike
+  - stale
+  - collusion
+
+# 6. Dossier de sortie (CSV et graphiques)
+output_dir: experiments/results
